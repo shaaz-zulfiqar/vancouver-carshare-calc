@@ -8,20 +8,23 @@ var SITE_CONFIG = {
   evo: {
     code: 'EVOPARTNER920',                    // <- your Evo promo code
     link: 'https://evo.ca/register',          // <- add your referral parameters here if you have them
-    offer: 'Free membership ($35 value) + 60 minutes of drive time'
+    offer: 'Free membership ($35 value) + 60 minutes of drive time',
+    note: "I'm a student and built this site on my own. Using my code helps both of us: you get the sign-up bonus, and I earn a small referral bonus. Thank you!"   // <- shown next to your code, so visitors know you earn a bonus
   },
   modo: {
     code: '',                                 // <- paste your Modo referral code here. While empty, all Modo code
                                               //    buttons/boxes stay hidden; adding a code brings them back.
     link: 'https://www.modo.coop/get-a-plan',
-    offer: 'Join the co-op through a member referral'
+    offer: 'Join the co-op through a member referral',
+    note: "I'm a student and built this site on my own. If you join through my referral, I earn a small credit. Thank you!"
   },
-  /* Feedback form. Fill in ONE of these; while both are empty the form stays hidden.
-   *  endpoint: a form-backend URL (e.g. your Formspree form: https://formspree.io/f/xxxxxxxx).
-   *            Messages arrive in your inbox and visitors never see your email address.
-   *  email:    fallback. Opens the visitor's email app addressed to you (your address is visible in the page source). */
+  /* Feedback form. Set ONE of these; while all are empty the form stays hidden.
+   *  web3formsKey: your Web3Forms access key. Messages arrive in the inbox you registered there.
+   *  endpoint:     any other form-backend URL (e.g. https://formspree.io/f/xxxxxxxx).
+   *  email:        fallback. Opens the visitor's email app addressed to you (your address is visible in the page source).
+   *  If more than one is set, web3formsKey wins, then endpoint, then email. */
   feedback: {
-    web3formsKey: '68e13dfe-f69b-43b4-91b8-d6cca486472f',    // easiest: your Web3Forms access key (web3forms.com). Messages go to the inbox you registered.
+    web3formsKey: '68e13dfe-f69b-43b4-91b8-d6cca486472f',
     endpoint: '',
     email: ''
   }
@@ -134,6 +137,7 @@ var SITE_CONFIG = {
       '<div><div class="flex items-center gap-2 mb-1"><span class="w-2.5 h-2.5 rounded-full" style="background:' + color + '"></span>' +
       '<span class="font-semibold">' + name + '</span></div>' +
       '<p class="text-sm text-slate-400">' + c.offer + '</p>' +
+      (c.note ? '<p class="text-xs mt-2 text-slate-300">' + c.note + '</p>' : '') +
       (key === 'modo' ? '<p class="text-xs mt-2" style="color:#fde68a">Modo is round-trip only: you must return the car to where you picked it up. Need a one-way trip? Use Evo.</p>' : '') +
       (key === 'evo' ? '<p class="text-xs mt-2 text-slate-500">Evo allows one-way trips, ending at approved parking inside its Home Zone.</p>' : '') +
       '</div>' +
@@ -167,6 +171,11 @@ var SITE_CONFIG = {
     document.querySelectorAll('[data-copy-code], [data-code-text]').forEach(function (el) {
       var key = el.getAttribute('data-copy-code') || el.getAttribute('data-code-text');
       if (!hasCode(key)) el.remove();
+    });
+
+    document.querySelectorAll('[data-note]').forEach(function (el) {
+      var c = SITE_CONFIG[el.getAttribute('data-note')];
+      if (c && c.note && hasCode(el.getAttribute('data-note'))) el.textContent = c.note; else el.remove();
     });
 
     document.querySelectorAll('[data-code-text]').forEach(function (el) {
