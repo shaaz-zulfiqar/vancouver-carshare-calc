@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vancouver Car Share Calculator — Evo and Modo Trip Costs Compared</title>
+<meta name="description" content="Free Vancouver car share calculators for Evo and Modo. Estimate trip costs with BC taxes and fees, or compare Evo vs Modo side by side to see which is cheaper.">
+<link rel="canonical" href="https://vancouvercarsharecalculator.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: {
+        evo: { DEFAULT: '#6BB8E0', light: '#A8DAF3', deep: '#3C9ACF' },
+        modo: { DEFAULT: '#E31837', light: '#FF5A70', deep: '#B30F29' },
+        panel: '#111723', line: '#222b3d'
+      },
+      fontFamily: { display: ['"Space Grotesk"', 'sans-serif'], body: ['Inter', 'sans-serif'], mono: ['"JetBrains Mono"', 'monospace'] }
+    } }
+  }
+</script>
+<style>
+  body{ background:#0B0F19; }
+  .hero-glow{ background:
+    radial-gradient(ellipse 45% 60% at 28% 0%, rgba(107,184,224,.26), transparent 70%),
+    radial-gradient(ellipse 45% 60% at 72% 0%, rgba(227,24,55,.24), transparent 70%); }
+  .card-lift{ transition:transform .18s ease, box-shadow .18s ease; }
+  .card-lift:hover{ transform:translateY(-3px); }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"Vancouver Car Share Calculator","url":"https://vancouvercarsharecalculator.com/"}
+</script>
+</head>
+<body class="text-slate-100 font-body min-h-screen" data-page="hub">
+
+<div class="pointer-events-none fixed inset-0 -z-10 hero-glow" aria-hidden="true"></div>
+
+<div id="site-nav"></div>
+
+<main class="max-w-6xl mx-auto px-5 pb-16">
+
+  <!-- Hero -->
+  <header class="text-center pt-10 pb-12 md:pt-16 md:pb-16">
+    <p class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold tracking-wide text-slate-300 mb-6">
+      <span class="w-2 h-2 rounded-full bg-evo"></span><span class="w-2 h-2 rounded-full bg-modo -ml-1"></span>
+      Metro Vancouver car share · 2026 rates
+    </p>
+    <h1 class="font-display font-semibold text-4xl md:text-7xl leading-[1.05] tracking-tight mb-5">
+      Vancouver Car Share
+      <span class="block bg-gradient-to-r from-evo via-white to-modo bg-clip-text text-transparent">Calculator</span>
+    </h1>
+    <p class="text-slate-400 text-base md:text-lg max-w-2xl mx-auto">Compare real trip costs across Evo and Modo, factoring in duration, distance and BC taxes, so you pick the cheaper ride before you book.</p>
+  </header>
+
+  <!-- Three core cards -->
+  <section class="grid md:grid-cols-3 gap-5 mb-14" aria-label="Calculators">
+    <a href="evo/evocalculator.html" class="card-lift group rounded-2xl p-px bg-gradient-to-b from-evo/70 to-line hover:shadow-[0_20px_50px_-20px_rgba(107,184,224,.5)]">
+      <div class="h-full rounded-[15px] bg-gradient-to-b from-[#0e1a22] to-panel p-6 flex flex-col">
+        <span class="text-xs font-semibold tracking-[0.18em] uppercase text-evo mb-3">Evo</span>
+        <h2 class="font-display font-semibold text-2xl mb-2">Evo Calculator</h2>
+        <p class="text-sm text-slate-400 mb-6">One-way flexible trips, per-minute billing and automatic hourly and daily caps.</p>
+        <ul class="text-xs text-slate-300 space-y-1.5 mb-6">
+          <li>$0.49/min · $17.99/hr · $104.99/day</li><li>BCAA discount toggle</li><li>Free membership promo code</li>
+        </ul>
+        <span class="mt-auto text-sm font-semibold text-evo group-hover:translate-x-1 transition">Open calculator →</span>
+      </div>
+    </a>
+
+    <a href="modo/modocalculator.html" class="card-lift group rounded-2xl p-px bg-gradient-to-b from-modo/70 to-line hover:shadow-[0_20px_50px_-20px_rgba(227,24,55,.5)]">
+      <div class="h-full rounded-[15px] bg-gradient-to-b from-[#1b1118] to-panel p-6 flex flex-col">
+        <span class="text-xs font-semibold tracking-[0.18em] uppercase text-modo-light mb-3">Modo</span>
+        <h2 class="font-display font-semibold text-2xl mb-2">Modo Calculator</h2>
+        <p class="text-sm text-slate-400 mb-6"><strong class="text-slate-200">Round-trip only</strong> (return to where you started). Hourly plus kilometre tiers and the Day Tripper rate.</p>
+        <ul class="text-xs text-slate-300 space-y-1.5 mb-6">
+          <li>Plus vs Monthly plans</li><li>Auto Day Tripper pricing</li><li>Daily Drive or Large &amp; Loadable</li>
+        </ul>
+        <span class="mt-auto text-sm font-semibold text-modo-light group-hover:translate-x-1 transition">Open calculator →</span>
+      </div>
+    </a>
+
+    <a href="compare/compare.html" class="card-lift group rounded-2xl p-px bg-gradient-to-br from-evo/70 via-line to-modo/70 hover:shadow-[0_20px_50px_-20px_rgba(255,255,255,.25)]">
+      <div class="h-full rounded-[15px] bg-gradient-to-br from-[#0e1a22] via-panel to-[#1b1118] p-6 flex flex-col">
+        <span class="text-xs font-semibold tracking-[0.18em] uppercase text-slate-300 mb-3">Head to head</span>
+        <h2 class="font-display font-semibold text-2xl mb-2">Evo vs Modo</h2>
+        <p class="text-sm text-slate-400 mb-6">Enter trip hours and kilometres, then see which service wins and the exact dollars saved.</p>
+        <ul class="text-xs text-slate-300 space-y-1.5 mb-6">
+          <li>Two live receipts side by side</li><li>Winner badge with savings</li><li>Taxes and fees included</li>
+        </ul>
+        <span class="mt-auto text-sm font-semibold text-white group-hover:translate-x-1 transition">Compare now →</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- What the trip needs -->
+  <section class="rounded-2xl border border-line bg-panel p-6 md:p-8 mb-8">
+    <h2 class="font-display font-semibold text-2xl mb-1">Which service fits your trip?</h2>
+    <p class="text-slate-400 text-sm mb-5 max-w-3xl">Start with what the trip needs. Some needs decide it before price does.</p>
+
+    <div role="note" class="mb-5 rounded-xl px-4 py-3 text-sm flex gap-3 items-start" style="border:1px solid rgba(251,191,36,.45);background:rgba(251,191,36,.08);color:#fde68a"><span aria-hidden="true">↔</span><p><strong class="text-white">Going one way? Choose Evo.</strong> Modo is round-trip only: the car must be returned to the spot you picked it up from, so Modo is never an option for a one-way trip.</p></div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm min-w-[560px]">
+        <thead>
+          <tr class="text-left border-b border-line">
+            <th class="py-3 pr-4 font-medium text-slate-500">Your trip</th>
+            <th class="py-3 px-4 font-semibold text-evo">Evo</th>
+            <th class="py-3 pl-4 font-semibold text-modo-light">Modo</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-line">
+          <tr><td class="py-3 pr-4 text-slate-300">One-way trip, leave the car behind</td><td class="py-3 px-4">✅ End the trip at an approved Evo parking spot in the Home Zone</td><td class="py-3 pl-4 text-slate-500">Round-trip only</td></tr>
+          <tr><td class="py-3 pr-4 text-slate-300">Airport drop-off or pickup (YVR)</td><td class="py-3 px-4">✅ YVR is an approved Evo end point ($5 drop-off fee, waived for BCAA members)</td><td class="py-3 pl-4 text-slate-500">Round-trip only: the car has to come back</td></tr>
+          <tr><td class="py-3 pr-4 text-slate-300">Spur-of-the-moment trip</td><td class="py-3 px-4">✅ Find one nearby and go, billed per minute</td><td class="py-3 pl-4 text-slate-500">30-minute minimum booking, returned to the same spot</td></tr>
+          <tr><td class="py-3 pr-4 text-slate-300">Lots of standing time (appointments, shopping, long stops)</td><td class="py-3 px-4 text-slate-500">Meter keeps running, up to $17.99/hr</td><td class="py-3 pl-4">✅ $5–6/hr while parked</td></tr>
+          <tr><td class="py-3 pr-4 text-slate-300">Mostly driving, lots of km per hour</td><td class="py-3 px-4">✅ No per-km charge</td><td class="py-3 pl-4 text-slate-500">35¢/km adds up</td></tr>
+          <tr><td class="py-3 pr-4 text-slate-300">Long day, distance under the km allowance</td><td class="py-3 px-4 text-slate-500">$104.99 day rate</td><td class="py-3 pl-4">✅ Day Tripper $100, 500 or 250 km included</td></tr>
+          <tr><td class="py-3 pr-4 text-slate-300">Long distance, past the km allowance</td><td class="py-3 px-4">✅ Cheaper (unlimited km &amp; fuel included)</td><td class="py-3 pl-4 text-slate-500">35¢ for every extra km</td></tr>
+          <tr><td class="py-3 pr-4 text-slate-300">Trip of 3 days or more</td><td class="py-3 px-4">✅ 3-day ($264.99) and 5-day ($424.99) rates</td><td class="py-3 pl-4 text-slate-500">$100/day, plus 35¢/km past the allowance</td></tr>
+          <tr><td class="py-3 pr-4 text-slate-300">Gas, insurance and parking</td><td class="py-3 px-4">✅ All included in the rate</td><td class="py-3 pl-4 text-slate-500">Fuel surcharge when gas is over $2.10/L</td></tr>
+          <tr><td class="py-3 pr-4 text-slate-300">Hauling cargo or moving</td><td class="py-3 px-4 text-slate-500">Standard cars</td><td class="py-3 pl-4">✅ Large &amp; Loadable and vans</td></tr>
+          <tr><td class="py-3 pr-4 text-slate-300">A car guaranteed at a set time</td><td class="py-3 px-4 text-slate-500">Find one nearby when you need it</td><td class="py-3 pl-4">✅ Reserved in advance</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-slate-600 mt-4">A guide, not advice. Run your actual trip through <a href="compare/compare.html" class="underline underline-offset-2 text-slate-400">the comparison tool</a>.</p>
+  </section>
+
+  <!-- Cost: standing time vs distance -->
+  <section class="rounded-2xl border border-line bg-panel p-6 md:p-8 mb-8">
+    <h2 class="font-display font-semibold text-2xl mb-1">Which is cheaper: standing time or distance?</h2>
+    <p class="text-slate-400 text-sm mb-6 max-w-3xl">Evo bills for <span class="text-evo font-semibold">time only</span>. Modo bills for <span class="text-modo-light font-semibold">time plus distance</span>. So the winner depends on how much of your booking is spent standing still and how far you actually drive.</p>
+
+    <div class="grid md:grid-cols-2 gap-4 mb-8">
+      <div class="rounded-xl border border-modo/30 bg-modo/5 p-5">
+        <p class="text-xs font-semibold tracking-[0.16em] uppercase text-modo-light mb-2">Standing time favours Modo</p>
+        <p class="text-sm text-slate-300">Modo's hourly rate is <span class="font-mono">$5</span> (Plus) or <span class="font-mono">$6</span> (Monthly). Evo's meter runs at up to <span class="font-mono">$17.99</span> an hour whether you are driving or parked. Appointments, shopping and long stops are where Modo saves the most.</p>
+      </div>
+      <div class="rounded-xl border border-evo/30 bg-evo/5 p-5">
+        <p class="text-xs font-semibold tracking-[0.16em] uppercase text-evo mb-2">Distance favours Evo</p>
+        <p class="text-sm text-slate-300">Evo includes gas, insurance and unlimited kilometres in its rates. Modo adds <span class="font-mono">35¢</span> per km, and its Day Tripper only includes <span class="font-mono">500 km</span> (Plus) or <span class="font-mono">250 km</span> (Monthly) per day, so long drives get expensive fast.</p>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-end justify-between gap-3 mb-3">
+      <h3 class="font-display font-semibold text-lg">Example trips, priced live</h3>
+      <div class="inline-flex items-center gap-2 text-xs text-slate-400">
+        <span>Modo plan:</span>
+        <div class="inline-flex bg-black/40 border border-line rounded-lg p-1" role="group" aria-label="Modo plan for examples">
+          <button type="button" id="exPlus" class="px-3 py-1 rounded-md font-semibold transition">Plus</button>
+          <button type="button" id="exMonthly" class="px-3 py-1 rounded-md font-semibold transition">Monthly</button>
+        </div>
+      </div>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm min-w-[640px]">
+        <thead>
+          <tr class="text-left border-b border-line text-slate-500">
+            <th class="py-2.5 pr-4 font-medium">Trip</th>
+            <th class="py-2.5 px-3 font-medium text-right">Hours</th>
+            <th class="py-2.5 px-3 font-medium text-right">km</th>
+            <th class="py-2.5 px-3 font-medium text-right text-evo">Evo</th>
+            <th class="py-2.5 px-3 font-medium text-right text-modo-light">Modo</th>
+            <th class="py-2.5 pl-4 font-medium">Cheaper</th>
+          </tr>
+        </thead>
+        <tbody id="exampleRows" class="divide-y divide-line"></tbody>
+      </table>
+    </div>
+    <div class="flex flex-wrap items-center justify-between gap-3 mt-4">
+      <button type="button" id="exMore" class="text-sm font-semibold text-slate-300 hover:text-white underline underline-offset-4"></button>
+      <a href="compare/compare.html" class="text-sm font-semibold text-white hover:underline underline-offset-4">Compare your own trip →</a>
+    </div>
+    <p class="text-xs text-slate-600 mt-4">Totals include fees and 12% tax. Assumes a Modo Daily Drive gas vehicle and no BCAA discount. Evo has no kilometre cap.</p>
+  </section>
+
+  <!-- Verified offers -->
+  <section id="offers" class="rounded-2xl border border-line bg-panel p-6 md:p-8 mb-8">
+    <h2 class="font-display font-semibold text-2xl mb-1">Current offers</h2>
+    <p class="text-sm text-slate-400 mb-6">Checked against the official Evo and Modo sites on November 7, 2026. Offers change, so confirm on the provider's page before you sign up.</p>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="rounded-xl border border-evo/30 bg-evo/5 p-5">
+        <p class="text-xs font-semibold tracking-[0.16em] uppercase text-evo mb-3">Evo</p>
+        <ul class="space-y-3 text-sm text-slate-300">
+          <li><span class="font-semibold text-white">BCAA members:</span> free registration (normally $35) and 10% off driving rates, up to $110 a year. <a class="text-evo underline underline-offset-2" href="https://evo.ca/rates" target="_blank" rel="noopener">evo.ca/rates</a></li>
+          <li><span class="font-semibold text-white">Multi-day rates:</span> 3 days for $264.99 ($50 off) and 5 days for $424.99 ($100 off). Built into the <a class="text-evo underline underline-offset-2" href="evo/evocalculator.html">Evo calculator</a>.</li>
+        </ul>
+      </div>
+      <div class="rounded-xl border border-modo/30 bg-modo/5 p-5">
+        <p class="text-xs font-semibold tracking-[0.16em] uppercase text-modo-light mb-3">Modo</p>
+        <ul class="space-y-3 text-sm text-slate-300">
+          <li><span class="font-semibold text-white">Refer a friend:</span> members earn $25 in driving credits when a friend joins. <a class="text-modo-light underline underline-offset-2" href="https://www.modo.coop/get-more" target="_blank" rel="noopener">modo.coop/get-more</a></li>
+          <li><span class="font-semibold text-white">Cleaning and Snow Angels:</span> earn up to $35 in free drive time by cleaning a Modo after driving it, or clearing snow off one.</li>
+          <li><span class="font-semibold text-white">Seat sales:</span> selected vehicles are discounted during periodic sales, applied automatically at booking. Amounts vary.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="referral-bar" class="mb-12"></div>
+
+<div id="feedback" class="mb-12"></div>
+
+<footer class="max-w-6xl mx-auto px-5 pb-12 text-center text-xs text-slate-600 leading-relaxed">
+  Independent estimate tool for planning purposes only. Not affiliated with, sponsored by, or endorsed by Evo Car Share or Modo Co-operative.
+  Rates last reviewed November 2026. © <span id="year"></span> vancouvercarsharecalculator.com
+</footer>
+
+<script src="assets/pricing.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function () {
+  var P = window.Pricing, plan = 'plus', showAll = false;
+  var FEATURED = ['appt', 'hike', 'airport', 'highway', 'whistler', 'threeday'];
+  var money = function (n) { return '$' + n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+  var hoursLabel = function (h) { return h >= 24 ? (h / 24) + (h === 24 ? ' day' : ' days') : String(h); };
+
+  function paint() {
+    [['exPlus', 'plus'], ['exMonthly', 'monthly']].forEach(function (p) {
+      document.getElementById(p[0]).className = 'px-3 py-1 rounded-md font-semibold transition ' + (plan === p[1] ? 'bg-modo text-white' : 'text-slate-400 hover:text-white');
+    });
+    document.getElementById('exampleRows').innerHTML = P.SCENARIOS.map(function (s) {
+      var e = P.evoQuote(s.hours * 60).total;
+      var m = s.oneWay ? null : P.modoQuote({ hours: s.hours, km: s.km, plan: plan, vehicle: 'daily', ev: false }).total;
+      var diff = m === null ? 0 : P.round2(Math.abs(e - m));
+      var win = m === null ? '<span class="text-evo font-semibold">Evo</span> <span class="text-slate-500">(only option)</span>'
+              : e < m ? '<span class="text-evo font-semibold">Evo</span> <span class="text-slate-500">by ' + money(diff) + '</span>'
+                      : '<span class="text-modo-light font-semibold">Modo</span> <span class="text-slate-500">by ' + money(diff) + '</span>';
+      var extra = FEATURED.indexOf(s.id) === -1;
+      return '<tr class="hover:bg-white/[0.03]"' + (extra && !showAll ? ' hidden' : '') + '>' +
+        '<td class="py-3 pr-4">' + (s.oneWay ? '<span class="text-slate-200">' + s.label + '</span>' : '<a href="compare/compare.html?h=' + s.hours + '&km=' + s.km + '" class="text-slate-200 hover:text-white underline-offset-2 hover:underline">' + s.label + '</a>') +
+          '<span class="block text-xs text-slate-500">' + s.kind + '</span></td>' +
+        '<td class="py-3 px-3 text-right font-mono text-slate-300">' + hoursLabel(s.hours) + '</td>' +
+        '<td class="py-3 px-3 text-right font-mono text-slate-300">' + s.km + '</td>' +
+        '<td class="py-3 px-3 text-right font-mono">' + money(e) + '</td>' +
+        '<td class="py-3 px-3 text-right font-mono' + (m === null ? ' text-slate-500' : '') + '">' + (m === null ? 'Not possible' : money(m)) + '</td>' +
+        '<td class="py-3 pl-4">' + win + '</td></tr>';
+    }).join('');
+    document.getElementById('exMore').textContent = showAll ? 'Show fewer trips' : 'Show all ' + P.SCENARIOS.length + ' trips';
+  }
+
+  document.getElementById('exMore').addEventListener('click', function () { showAll = !showAll; paint(); });
+  document.getElementById('exPlus').addEventListener('click', function () { plan = 'plus'; paint(); });
+  document.getElementById('exMonthly').addEventListener('click', function () { plan = 'monthly'; paint(); });
+  paint();
+})();
+</script>
+</body>
+</html>

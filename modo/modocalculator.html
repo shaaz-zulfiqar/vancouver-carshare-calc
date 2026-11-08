@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modo Rate Calculator 2026 — Hourly, km, Day Tripper &amp; Tax</title>
+<meta name="description" content="Estimate your Modo car co-op trip cost in Vancouver: Modo Plus vs Monthly rates, per-km charges, automatic Day Tripper pricing, innovation fee, 12% tax and PVRT.">
+<link rel="canonical" href="https://vancouvercarsharecalculator.com/modo/modocalculator.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: {
+        modo: { DEFAULT: '#E31837', light: '#FF5A70', deep: '#B30F29' },
+        slate: { 950: '#0B0F19' },
+        panel: '#111723', panel2: '#151c2b', line: '#222b3d'
+      },
+      fontFamily: {
+        display: ['"Space Grotesk"', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace']
+      }
+    } }
+  }
+</script>
+<style>
+  body{ background:#0B0F19; }
+  input[type=range]{ -webkit-appearance:none; height:6px; border-radius:999px; background:#222b3d; }
+  input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; height:20px; border-radius:9999px; background:#E31837; border:3px solid #0B0F19; cursor:pointer; margin-top:-1px; }
+  input[type=range]::-moz-range-thumb{ width:16px; height:16px; border-radius:9999px; background:#E31837; border:3px solid #0B0F19; cursor:pointer; }
+  input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+  .glow-red{ background:radial-gradient(ellipse at center, rgba(227,24,55,.30) 0%, rgba(227,24,55,.08) 42%, transparent 70%); }
+</style>
+</head>
+<body class="text-slate-100 font-body min-h-screen" data-page="modo">
+
+<div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
+  <div class="glow-red absolute -top-48 left-1/2 -translate-x-1/2 w-[1100px] h-[600px]"></div>
+</div>
+
+<div id="site-nav"></div>
+
+<main class="max-w-6xl mx-auto px-5 pb-16">
+
+  <header class="text-center pt-8 pb-10">
+    <div class="inline-flex items-center gap-2 rounded-full border border-modo/40 bg-modo/10 px-4 py-1.5 mb-6">
+      <span class="w-1.5 h-1.5 rounded-full bg-modo"></span>
+      <span class="text-xs font-semibold tracking-wide text-modo-light font-display">Modo Rate Calculator 2026</span>
+    </div>
+    <h1 class="font-display font-semibold text-4xl md:text-6xl leading-[1.08] tracking-tight mb-4">
+      Plan your Modo trip
+      <span class="block bg-gradient-to-r from-modo-light via-modo to-modo-deep bg-clip-text text-transparent">hours, km and the Day Tripper</span>
+    </h1>
+    <p class="text-slate-400 max-w-xl mx-auto">You pay for booked hours plus kilometres. The calculator switches to the Day Tripper automatically whenever it is cheaper.</p>
+  </header>
+
+  <div role="note" class="mb-6 rounded-xl px-4 py-3 text-sm flex gap-3 items-start" style="border:1px solid rgba(251,191,36,.45);background:rgba(251,191,36,.08);color:#fde68a"><span aria-hidden="true">↔</span><p><strong class="text-white">Going one way? Choose Evo.</strong> Modo is round-trip only: the car must be returned to the spot you picked it up from, so Modo is never an option for a one-way trip. If you need to leave the car at your destination, use <a href="../evo/evocalculator.html" class="underline underline-offset-2 text-white">Evo</a> instead.</p></div>
+
+  <!-- Referral (hidden automatically until you add a code in assets/site.js) -->
+  <section class="mb-8" data-requires-code="modo">
+    <div class="rounded-3xl p-px bg-gradient-to-br from-modo/70 via-modo/20 to-line">
+      <div class="relative overflow-hidden rounded-[23px] bg-gradient-to-b from-[#1b1118] via-[#121623] to-[#0e1320] px-6 py-8 md:px-12 md:py-9 text-center">
+        <div class="relative">
+          <p class="text-[11px] font-semibold tracking-[0.24em] uppercase text-modo-light mb-3">✦ Joining Modo? ✦</p>
+          <h2 class="font-display font-semibold text-2xl md:text-3xl leading-snug mb-3">Use my referral code when you sign up</h2>
+          <p class="text-xs mb-5" style="color:#fde68a">Modo is round-trip only. You must return the car to where you picked it up. For one-way trips, use Evo.</p>
+          <div class="inline-flex flex-wrap items-center justify-center gap-3 rounded-xl border border-dashed border-modo/50 bg-black/40 px-5 py-3 mb-6">
+            <span class="text-slate-400 text-sm">Referral code</span>
+            <code class="font-mono text-lg md:text-xl text-white tracking-wide" data-code-text="modo"></code>
+            <button type="button" data-copy-code="modo" aria-label="Copy referral code" class="text-slate-400 hover:text-modo-light transition p-1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-4 h-4"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            </button>
+          </div>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button type="button" data-copy-code="modo" data-open-after data-copied-label="Copied, opening signup…"
+              class="w-full sm:w-auto bg-modo text-white font-semibold text-sm px-7 py-3.5 rounded-xl hover:bg-modo-light transition">Copy Code + Open Modo</button>
+            <a data-link="modo" target="_blank" rel="noopener"
+              class="w-full sm:w-auto text-center border border-modo/60 text-modo-light font-semibold text-sm px-7 py-3.5 rounded-xl hover:bg-modo/10 transition">Open Modo Plans</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator + receipt -->
+  <section class="grid lg:grid-cols-2 gap-6 mb-8 items-start">
+
+    <div class="rounded-2xl border border-line bg-panel p-6 md:p-8 space-y-7">
+
+      <div>
+        <h2 class="font-display font-semibold text-sm uppercase tracking-wide text-slate-400 mb-3">Membership plan</h2>
+        <div class="grid grid-cols-2 gap-2" id="planGroup">
+          <button type="button" data-plan="plus" class="seg rounded-xl border px-4 py-3 text-left transition">
+            <span class="block font-semibold text-sm">Modo Plus</span><span class="block text-xs opacity-70">$5/hr · 500 km/day included</span>
+          </button>
+          <button type="button" data-plan="monthly" class="seg rounded-xl border px-4 py-3 text-left transition">
+            <span class="block font-semibold text-sm">Modo Monthly</span><span class="block text-xs opacity-70">$6/hr · 250 km/day included</span>
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="font-display font-semibold text-sm uppercase tracking-wide text-slate-400 mb-3">Vehicle</h2>
+        <div class="grid grid-cols-2 gap-2" id="vehicleGroup">
+          <button type="button" data-vehicle="daily" class="seg rounded-xl border px-4 py-3 text-left transition">
+            <span class="block font-semibold text-sm">Daily Drive</span><span class="block text-xs opacity-70">Compact cars, lowest rates</span>
+          </button>
+          <button type="button" data-vehicle="large" class="seg rounded-xl border px-4 py-3 text-left transition">
+            <span class="block font-semibold text-sm">Large &amp; Loadable</span><span class="block text-xs opacity-70">SUVs, minivans, pickups</span>
+          </button>
+        </div>
+        <label class="mt-3 flex items-center justify-between gap-3 bg-slate-950 border border-line rounded-xl px-4 py-3 cursor-pointer">
+          <span><span class="block text-sm font-medium">Electric vehicle</span><span class="block text-xs text-slate-500">$1 innovation fee instead of $3</span></span>
+          <span class="relative inline-block w-11 h-6 shrink-0">
+            <input id="evToggle" type="checkbox" class="peer sr-only">
+            <span class="absolute inset-0 rounded-full bg-slate-700 peer-checked:bg-modo transition"></span>
+            <span class="absolute left-1 top-1 w-4 h-4 rounded-full bg-slate-200 peer-checked:translate-x-5 transition-transform"></span>
+          </span>
+        </label>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-display font-semibold text-sm uppercase tracking-wide text-slate-400">Booking length</h2>
+          <div class="inline-flex bg-slate-950 border border-line rounded-lg p-1" role="group" aria-label="Duration unit">
+            <button type="button" id="uHours" class="px-3 py-1 rounded-md text-xs font-semibold font-display transition">Hours</button>
+            <button type="button" id="uDays" class="px-3 py-1 rounded-md text-xs font-semibold font-display transition">Days</button>
+          </div>
+        </div>
+        <div class="flex items-stretch gap-3 mb-3">
+          <input id="durInput" type="number" min="0" step="0.5" value="3" inputmode="decimal" aria-label="Booking length"
+            class="flex-1 min-w-0 bg-slate-950 border border-line rounded-xl px-4 py-3 font-mono text-2xl focus:outline-none focus:ring-2 focus:ring-modo">
+          <div id="durUnit" class="flex items-center px-2 text-slate-400 text-sm font-display uppercase">hr</div>
+        </div>
+        <input id="durSlider" type="range" min="0" max="48" step="0.5" value="3" class="w-full" aria-label="Booking length slider">
+      </div>
+
+      <div>
+        <h2 class="font-display font-semibold text-sm uppercase tracking-wide text-slate-400 mb-3">Distance</h2>
+        <div class="flex items-stretch gap-3 mb-3">
+          <input id="kmInput" type="number" min="0" step="1" value="40" inputmode="decimal" aria-label="Kilometres driven"
+            class="flex-1 min-w-0 bg-slate-950 border border-line rounded-xl px-4 py-3 font-mono text-2xl focus:outline-none focus:ring-2 focus:ring-modo">
+          <div class="flex items-center px-2 text-slate-400 text-sm font-display uppercase">km</div>
+        </div>
+        <input id="kmSlider" type="range" min="0" max="600" step="5" value="40" class="w-full" aria-label="Kilometres slider">
+        <div class="flex justify-between text-[11px] text-slate-500 mt-1"><span>0</span><span>150</span><span>300</span><span>450</span><span>600+</span></div>
+      </div>
+    </div>
+
+    <div class="rounded-2xl border border-modo/30 bg-gradient-to-b from-panel2 to-panel p-6 md:p-8 lg:sticky lg:top-6">
+      <div class="flex items-start justify-between gap-3 mb-5">
+        <h2 class="font-display font-semibold text-lg">Cost breakdown</h2>
+        <span id="modeBadge" class="text-[11px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-white/10 text-slate-300">Regular rates</span>
+      </div>
+
+      <dl class="divide-y divide-line text-sm">
+        <div class="flex justify-between gap-4 py-3">
+          <dt class="text-slate-300">Time<span id="timeDetail" class="block text-xs text-slate-500 mt-0.5"></span></dt>
+          <dd id="rTime" class="font-mono">$0.00</dd>
+        </div>
+        <div class="flex justify-between gap-4 py-3">
+          <dt class="text-slate-300">Distance<span id="distDetail" class="block text-xs text-slate-500 mt-0.5"></span></dt>
+          <dd id="rDist" class="font-mono">$0.00</dd>
+        </div>
+        <div class="flex justify-between gap-4 py-3">
+          <dt class="text-slate-300">Co-op innovation fee<span id="feeDetail" class="block text-xs text-slate-500 mt-0.5"></span></dt>
+          <dd id="rFee" class="font-mono">$0.00</dd>
+        </div>
+        <div class="flex justify-between gap-4 py-3">
+          <dt class="text-slate-300">Tax (5% GST + 7% PST)</dt>
+          <dd id="rTax" class="font-mono">$0.00</dd>
+        </div>
+        <div id="pvrtRow" class="flex justify-between gap-4 py-3 hidden">
+          <dt class="text-slate-300">Passenger Vehicle Rental Tax</dt>
+          <dd id="rPvrt" class="font-mono">$0.00</dd>
+        </div>
+      </dl>
+
+      <div class="flex justify-between items-center mt-4 pt-4 border-t border-line">
+        <span class="font-display font-semibold text-lg">Net Total</span>
+        <span id="rTotal" class="font-mono text-4xl font-bold bg-gradient-to-r from-modo-light to-modo bg-clip-text text-transparent">$0.00</span>
+      </div>
+
+      <div id="savedBox" class="hidden mt-4 rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200"></div>
+      <p id="modoNote" class="text-xs text-slate-500 mt-4 min-h-[1rem]"></p>
+      <p class="text-[11px] text-slate-600 mt-2">Tax is 12% of time + distance + innovation fee. Overnight (9pm–7am) 3-hour cap and gas fuel surcharges are not modelled.</p>
+    </div>
+  </section>
+
+  <!-- Rates reference -->
+  <section class="rounded-2xl border border-line bg-panel p-6 md:p-8 mb-8">
+    <h2 class="font-display font-semibold text-xl mb-1">Modo rates used in this calculator</h2>
+    <p class="text-sm text-slate-500 mb-5">The Day Tripper applies automatically to whole-day bookings and covers both time and included distance. Extra hours bill at regular rates and extra km at 35¢.</p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm min-w-[520px]">
+        <thead><tr class="text-left text-slate-500 border-b border-line"><th class="py-2 font-medium">Vehicle</th><th class="py-2 font-medium text-right">Plus /hr</th><th class="py-2 font-medium text-right">Monthly /hr</th><th class="py-2 font-medium text-right">Day Tripper</th></tr></thead>
+        <tbody class="divide-y divide-line">
+          <tr><td class="py-2.5">Daily Drive</td><td class="text-right font-mono text-modo-light">$5</td><td class="text-right font-mono text-modo-light">$6</td><td class="text-right font-mono text-modo-light">$100/day</td></tr>
+          <tr><td class="py-2.5">Large &amp; Loadable</td><td class="text-right font-mono text-modo-light">$7</td><td class="text-right font-mono text-modo-light">$8</td><td class="text-right font-mono text-modo-light">$135/day</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-2 text-sm text-slate-300">
+      <li><span class="font-semibold text-white">Distance:</span> 35¢ per km</li>
+      <li><span class="font-semibold text-white">Day Tripper km included:</span> 500/day (Plus), 250/day (Monthly)</li>
+      <li><span class="font-semibold text-white">Co-op innovation fee:</span> $1 per EV trip, $3 per gas trip</li>
+      <li><span class="font-semibold text-white">Taxes:</span> 12% (5% GST + 7% PST)</li>
+      <li><span class="font-semibold text-white">PVRT:</span> $1.50 for bookings of 8+ hours, then per 24 hours</li>
+      <li><span class="font-semibold text-white">Plan costs:</span> Plus $500 refundable share; Monthly $6/month admin fee</li>
+    </ul>
+  </section>
+
+  <section class="rounded-2xl border border-line bg-panel p-6 md:p-8">
+    <h2 class="font-display font-semibold text-xl mb-4">Modo FAQ</h2>
+    <div class="divide-y divide-line">
+      <div class="py-4"><p class="font-semibold text-sm mb-1.5">When does the Day Tripper kick in?</p><p class="text-sm text-slate-400">Whenever it costs less than regular hourly plus distance charges for your plan. For example, a long day of 12+ hours often lands on the $100 day rate. It includes 500 km a day on Plus and 250 km on Monthly, and every extra kilometre is 35¢, so very long drives can still get expensive. The calculator compares both options and shows the cheaper one.</p></div>
+      <div class="py-4"><p class="font-semibold text-sm mb-1.5">Why is distance a separate charge?</p><p class="text-sm text-slate-400">Modo bills for booked time and kilometres driven, so a short errand with a long drive can cost more than the hours suggest.</p></div>
+      <div class="py-4"><p class="font-semibold text-sm mb-1.5">Should I pick Modo or Evo?</p><p class="text-sm text-slate-400">It depends on standing time versus distance. Modo is cheaper when much of your booking is spent parked ($5–6 an hour versus Evo's meter of up to $17.99), while Evo is cheaper when you cover a lot of kilometres, since it has no per-km charge. <a href="../compare/compare.html" class="text-modo-light underline underline-offset-2">Compare both for your trip</a> to see the exact distance where the winner flips.</p></div>
+      <div class="py-4"><p class="font-semibold text-sm mb-1.5">Is this site affiliated with Modo?</p><p class="text-sm text-slate-400">No. This is an independent estimate tool, not affiliated with, sponsored by, or endorsed by Modo Co-operative.</p></div>
+    </div>
+  </section>
+</main>
+
+<div id="referral-bar" class="mb-12"></div>
+
+<div id="feedback" class="mb-12"></div>
+
+<footer class="max-w-6xl mx-auto px-5 pb-12 text-center text-xs text-slate-600 leading-relaxed">
+  Independent estimate tool for planning purposes only. Not affiliated with, sponsored by, or endorsed by Modo Co-operative.
+  Rates last reviewed November 2026; verify current pricing on modo.coop. © <span id="year"></span> vancouvercarsharecalculator.com
+</footer>
+
+<script src="../assets/pricing.js"></script>
+<script src="../assets/site.js"></script>
+<script>
+(function () {
+  var P = window.Pricing;
+  var $ = function (id) { return document.getElementById(id); };
+  var state = { plan: 'plus', vehicle: 'daily', unit: 'hr' };
+  var dur = $('durInput'), durS = $('durSlider'), km = $('kmInput'), kmS = $('kmSlider'), ev = $('evToggle');
+  var fmt = function (n) { return '$' + n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+
+  function paintSegments() {
+    document.querySelectorAll('#planGroup .seg').forEach(function (b) { setSeg(b, b.getAttribute('data-plan') === state.plan); });
+    document.querySelectorAll('#vehicleGroup .seg').forEach(function (b) { setSeg(b, b.getAttribute('data-vehicle') === state.vehicle); });
+    [['uHours', 'hr'], ['uDays', 'day']].forEach(function (p) {
+      $(p[0]).className = 'px-3 py-1 rounded-md text-xs font-semibold font-display transition ' + (state.unit === p[1] ? 'bg-modo text-white' : 'text-slate-400 hover:text-white');
+    });
+    $('durUnit').textContent = state.unit;
+  }
+  function setSeg(b, on) {
+    b.className = 'seg rounded-xl border px-4 py-3 text-left transition ' +
+      (on ? 'border-modo bg-modo/15 text-white' : 'border-line bg-slate-950 text-slate-300 hover:border-modo/50');
+  }
+
+  function hours() {
+    var v = parseFloat(dur.value); if (isNaN(v) || v < 0) v = 0;
+    return state.unit === 'day' ? v * 24 : v;
+  }
+
+  function render() {
+    var kmv = parseFloat(km.value); if (isNaN(kmv) || kmv < 0) kmv = 0;
+    var q = P.modoQuote({ hours: hours(), km: kmv, plan: state.plan, vehicle: state.vehicle, ev: ev.checked });
+
+    $('rTime').textContent = fmt(q.time);
+    $('rDist').textContent = fmt(q.dist);
+    $('rFee').textContent = fmt(q.fee);
+    $('rTax').textContent = fmt(q.tax);
+    $('rTotal').textContent = fmt(q.total);
+    $('timeDetail').textContent = q.timeDetail;
+    $('distDetail').textContent = q.distDetail;
+    $('feeDetail').textContent = hours() > 0 ? (ev.checked ? 'Electric vehicle' : 'Gas vehicle') : '';
+
+    var pv = $('pvrtRow');
+    if (q.pvrt > 0) { pv.classList.remove('hidden'); $('rPvrt').textContent = fmt(q.pvrt); } else pv.classList.add('hidden');
+
+    var badge = $('modeBadge');
+    if (q.mode === 'dayTripper') { badge.textContent = 'Day Tripper applied'; badge.className = 'text-[11px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-modo text-white'; }
+    else { badge.textContent = 'Regular rates'; badge.className = 'text-[11px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-white/10 text-slate-300'; }
+
+    var sb = $('savedBox');
+    if (q.mode === 'dayTripper' && q.saved > 0) { sb.textContent = 'Day Tripper saves you ' + fmt(q.saved) + ' before tax compared with regular hourly + km rates.'; sb.classList.remove('hidden'); }
+    else sb.classList.add('hidden');
+
+    $('modoNote').textContent = q.note;
+  }
+
+  function syncDurSlider() { var v = parseFloat(dur.value); if (!isNaN(v)) durS.value = Math.min(v, parseFloat(durS.max)); }
+  function syncKmSlider() { var v = parseFloat(km.value); if (!isNaN(v)) kmS.value = Math.min(v, parseFloat(kmS.max)); }
+
+  function setUnit(next) {
+    var h = hours();
+    state.unit = next;
+    if (next === 'day') { durS.max = 10; durS.step = 0.5; dur.step = 0.5; dur.value = +(h / 24).toFixed(2); }
+    else { durS.max = 48; durS.step = 0.5; dur.step = 0.5; dur.value = +h.toFixed(2); }
+    syncDurSlider(); paintSegments(); render();
+  }
+
+  document.querySelectorAll('#planGroup .seg').forEach(function (b) { b.addEventListener('click', function () { state.plan = b.getAttribute('data-plan'); paintSegments(); render(); }); });
+  document.querySelectorAll('#vehicleGroup .seg').forEach(function (b) { b.addEventListener('click', function () { state.vehicle = b.getAttribute('data-vehicle'); paintSegments(); render(); }); });
+  $('uHours').addEventListener('click', function () { setUnit('hr'); });
+  $('uDays').addEventListener('click', function () { setUnit('day'); });
+  durS.addEventListener('input', function () { dur.value = durS.value; render(); });
+  dur.addEventListener('input', function () { syncDurSlider(); render(); });
+  kmS.addEventListener('input', function () { km.value = kmS.value; render(); });
+  km.addEventListener('input', function () { syncKmSlider(); render(); });
+  ev.addEventListener('change', render);
+
+  paintSegments(); render();
+})();
+</script>
+</body>
+</html>
