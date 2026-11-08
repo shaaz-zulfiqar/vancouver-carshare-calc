@@ -68,9 +68,9 @@ var SITE_CONFIG = {
 
   /* -------------------------------------------------------- navigation */
   var NAV = [
-    { id: 'evo', label: 'Evo', path: 'evo/evocalculator.html', dot: '#6BB8E0' },
-    { id: 'modo', label: 'Modo', path: 'modo/modocalculator.html', dot: '#E31837' },
-    { id: 'compare', label: 'Compare', path: 'compare/compare.html', dot: 'linear-gradient(90deg,#6BB8E0,#E31837)' }
+    { id: 'evo', label: 'Evo', path: 'evo/', dot: '#6BB8E0' },
+    { id: 'modo', label: 'Modo', path: 'modo/', dot: '#E31837' },
+    { id: 'compare', label: 'Compare', path: 'compare/', dot: 'linear-gradient(90deg,#6BB8E0,#E31837)' }
   ];
 
   function renderNav() {
@@ -258,7 +258,7 @@ var SITE_CONFIG = {
       if (msg.length < 5) { say('Please write a few words first.', false); return; }
       if (from && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(from)) { say('That email address does not look right.', false); return; }
 
-      var page = location.pathname.replace(/^.*\/(?=[^\/]*\/[^\/]*$)/, '') || 'index.html';
+      var page = location.pathname || '/';
       window.track('submit_feedback', { feedback_type: type });          // type only, never the message text
 
       if (endpoint) {

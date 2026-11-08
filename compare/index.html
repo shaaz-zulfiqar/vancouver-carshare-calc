@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evo vs Modo Cost Comparison 2026 — Which Car Share Is Cheaper?</title>
+<meta name="description" content="Enter your trip hours and kilometres to see whether Evo or Modo is cheaper in Vancouver, with a full side-by-side receipt including tax, fees and the exact dollar difference.">
+<link rel="canonical" href="https://vancouvercarsharecalculator.com/compare/">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../assets/icon-192.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vancouver Car Share Calculator">
+<meta property="og:title" content="Evo vs Modo Cost Comparison 2026 — Which Car Share Is Cheaper?">
+<meta property="og:description" content="Enter your trip hours and kilometres to see whether Evo or Modo is cheaper in Vancouver, with a full side-by-side receipt including tax, fees and the exact dollar difference.">
+<meta property="og:url" content="https://vancouvercarsharecalculator.com/compare/">
+<meta property="og:image" content="https://vancouvercarsharecalculator.com/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://vancouvercarsharecalculator.com/assets/og-image.jpg">
+<meta name="twitter:title" content="Evo vs Modo Cost Comparison 2026 — Which Car Share Is Cheaper?">
+<meta name="twitter:description" content="Enter your trip hours and kilometres to see whether Evo or Modo is cheaper in Vancouver, with a full side-by-side receipt including tax, fees and the exact dollar difference.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: {
+        evo: { DEFAULT: '#6BB8E0', light: '#A8DAF3', deep: '#3C9ACF' },
+        modo: { DEFAULT: '#E31837', light: '#FF5A70', deep: '#B30F29' },
+        slate: { 950: '#0B0F19' },
+        panel: '#111723', line: '#222b3d'
+      },
+      fontFamily: {
+        display: ['"Space Grotesk"', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace']
+      }
+    } }
+  }
+</script>
+<style>
+  body{ background:#0B0F19; }
+  input[type=range]{ -webkit-appearance:none; height:6px; border-radius:999px; background:#222b3d; }
+  input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; height:20px; border-radius:9999px; background:#fff; border:3px solid #0B0F19; cursor:pointer; margin-top:-1px; }
+  input[type=range]::-moz-range-thumb{ width:16px; height:16px; border-radius:9999px; background:#fff; border:3px solid #0B0F19; cursor:pointer; }
+  input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+  .split-glow{ background:
+    radial-gradient(ellipse 50% 60% at 25% 0%, rgba(107,184,224,.22), transparent 70%),
+    radial-gradient(ellipse 50% 60% at 75% 0%, rgba(227,24,55,.22), transparent 70%); }
+</style>
+</head>
+<body class="text-slate-100 font-body min-h-screen" data-page="compare">
+
+<div class="pointer-events-none fixed inset-0 -z-10 split-glow" aria-hidden="true"></div>
+
+<div id="site-nav"></div>
+
+<main class="max-w-6xl mx-auto px-5 pb-16">
+
+  <header class="text-center pt-8 pb-10">
+    <h1 class="font-display font-semibold text-4xl md:text-6xl leading-[1.08] tracking-tight mb-4">
+      <span class="text-evo">Evo</span> <span class="text-slate-500 text-3xl md:text-5xl">vs</span> <span class="text-modo">Modo</span>
+      <span class="block text-2xl md:text-3xl text-slate-300 mt-3 font-medium">Which is cheaper for your trip?</span>
+    </h1>
+    <p class="text-slate-400 max-w-xl mx-auto">Enter how long you need the car and how far you are going. Both receipts update live, taxes and fees included.</p>
+  </header>
+
+  <!-- Example trips -->
+  <div class="mb-4">
+    <p class="text-xs text-slate-500 uppercase tracking-wide mb-2 text-center">Try an example trip</p>
+    <div id="scenarios" class="flex flex-wrap justify-center gap-2"></div>
+  </div>
+
+  <!-- Inputs -->
+  <section class="rounded-2xl border border-line bg-panel p-6 md:p-8 mb-6">
+    <div class="grid md:grid-cols-2 gap-8">
+      <div>
+        <div class="flex items-baseline justify-between mb-3">
+          <h2 class="font-display font-semibold text-sm uppercase tracking-wide text-slate-400">Trip duration</h2>
+          <span id="durLabel" class="text-sm text-slate-300 font-mono"></span>
+        </div>
+        <div class="flex items-stretch gap-3 mb-3">
+          <input id="durInput" type="number" min="0" step="0.5" value="2.5" inputmode="decimal" aria-label="Trip duration in hours"
+            class="flex-1 min-w-0 bg-slate-950 border border-line rounded-xl px-4 py-3 font-mono text-2xl focus:outline-none focus:ring-2 focus:ring-white/40">
+          <div class="flex items-center px-2 text-slate-400 text-sm font-display uppercase">hr</div>
+        </div>
+        <input id="durSlider" type="range" min="0" max="48" step="0.5" value="2.5" class="w-full" aria-label="Duration slider">
+        <div class="flex justify-between text-[11px] text-slate-500 mt-1"><span>0</span><span>12</span><span>24</span><span>36</span><span>48+</span></div>
+      </div>
+
+      <div>
+        <div class="flex items-baseline justify-between mb-3">
+          <h2 class="font-display font-semibold text-sm uppercase tracking-wide text-slate-400">Distance</h2>
+          <span class="text-xs text-slate-500">Evo doesn't charge per km</span>
+        </div>
+        <div class="flex items-stretch gap-3 mb-3">
+          <input id="kmInput" type="number" min="0" step="1" value="40" inputmode="decimal" aria-label="Distance in kilometres"
+            class="flex-1 min-w-0 bg-slate-950 border border-line rounded-xl px-4 py-3 font-mono text-2xl focus:outline-none focus:ring-2 focus:ring-white/40">
+          <div class="flex items-center px-2 text-slate-400 text-sm font-display uppercase">km</div>
+        </div>
+        <input id="kmSlider" type="range" min="0" max="600" step="5" value="40" class="w-full" aria-label="Distance slider">
+        <div class="flex justify-between text-[11px] text-slate-500 mt-1"><span>0</span><span>150</span><span>300</span><span>450</span><span>600+</span></div>
+      </div>
+    </div>
+
+    <div class="mt-7 pt-6 border-t border-line grid sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm">
+      <label class="flex flex-col gap-1.5"><span class="text-xs text-slate-500 uppercase tracking-wide">Modo plan</span>
+        <select id="plan" class="bg-slate-950 border border-line rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-modo">
+          <option value="plus">Modo Plus ($5/hr)</option><option value="monthly">Modo Monthly ($6/hr)</option>
+        </select></label>
+      <label class="flex flex-col gap-1.5"><span class="text-xs text-slate-500 uppercase tracking-wide">Modo vehicle</span>
+        <select id="vehicle" class="bg-slate-950 border border-line rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-modo">
+          <option value="daily">Daily Drive</option><option value="large">Large &amp; Loadable</option>
+        </select></label>
+      <label class="flex items-center justify-between gap-3 bg-slate-950 border border-line rounded-lg px-3 py-2.5 cursor-pointer self-end">
+        <span>Modo electric vehicle</span>
+        <input id="ev" type="checkbox" class="w-4 h-4 accent-[#E31837]"></label>
+      <label class="flex items-center justify-between gap-3 bg-slate-950 border border-line rounded-lg px-3 py-2.5 cursor-pointer self-end">
+        <span>BCAA discount (Evo)</span>
+        <input id="bcaa" type="checkbox" class="w-4 h-4 accent-[#6BB8E0]"></label>
+    </div>
+  </section>
+
+  <!-- Verdict -->
+  <div role="note" class="mb-4 rounded-xl px-4 py-3 text-sm flex gap-3 items-start" style="border:1px solid rgba(251,191,36,.45);background:rgba(251,191,36,.08);color:#fde68a"><span aria-hidden="true">↔</span><p><strong class="text-white">Going one way? Choose Evo.</strong> Modo is round-trip only: the car must be returned to the spot you picked it up from, so Modo is never an option for a one-way trip.</p></div>
+  <section id="verdict" class="rounded-2xl border border-line bg-panel p-5 md:p-6 mb-6 text-center">
+    <p id="verdictText" class="font-display font-semibold text-2xl md:text-3xl"></p>
+    <p id="verdictSub" class="text-sm text-slate-400 mt-1"></p>
+    <div class="mt-4 pt-4 border-t border-line">
+      <p id="breakEven" class="text-sm text-slate-200"></p>
+      <p id="whyText" class="text-xs text-slate-500 mt-1.5"></p>
+    </div>
+  </section>
+
+  <!-- Receipts -->
+  <section class="grid md:grid-cols-2 gap-6 mb-8">
+
+    <article id="evoCard" class="rounded-2xl p-px bg-gradient-to-b from-evo/60 to-line transition">
+      <div class="rounded-[15px] bg-gradient-to-b from-[#0e1a22] to-panel p-6 h-full">
+        <div class="flex items-start justify-between mb-5">
+          <div><h2 class="font-display font-semibold text-xl text-evo">Evo</h2><p class="text-xs text-slate-500">One-way, per-minute billing</p></div>
+          <span id="evoBadge" class="hidden text-[11px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-evo text-black">Cheaper</span>
+        </div>
+        <dl class="divide-y divide-line text-sm">
+          <div class="flex justify-between py-2.5"><dt class="text-slate-300">Trip charges</dt><dd id="eTrip" class="font-mono">$0.00</dd></div>
+          <div class="flex justify-between py-2.5"><dt class="text-slate-300">All-Access fee</dt><dd id="eFee" class="font-mono">$0.00</dd></div>
+          <div class="flex justify-between py-2.5"><dt class="text-slate-300">Tax (12%)</dt><dd id="eTax" class="font-mono">$0.00</dd></div>
+          <div id="ePvrtRow" class="flex justify-between py-2.5 hidden"><dt class="text-slate-300">PVRT</dt><dd id="ePvrt" class="font-mono">$0.00</dd></div>
+        </dl>
+        <div class="flex justify-between items-center mt-3 pt-4 border-t border-line">
+          <span class="font-display font-semibold">Total</span>
+          <span id="eTotal" class="font-mono text-4xl font-bold text-evo">$0.00</span>
+        </div>
+        <p id="eNote" class="text-xs text-slate-500 mt-3 min-h-[1rem]"></p>
+        <a href="../evo/" class="inline-block mt-3 text-sm text-evo underline underline-offset-2" data-track="compare_to_evo">Open the full Evo calculator →</a>
+      </div>
+    </article>
+
+    <article id="modoCard" class="rounded-2xl p-px bg-gradient-to-b from-modo/60 to-line transition">
+      <div class="rounded-[15px] bg-gradient-to-b from-[#1b1118] to-panel p-6 h-full">
+        <div class="flex items-start justify-between mb-5">
+          <div><h2 class="font-display font-semibold text-xl text-modo-light">Modo</h2><p class="text-xs text-slate-500">Round-trip only, hours + kilometres</p></div>
+          <span id="modoBadge" class="hidden text-[11px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-modo text-white">Cheaper</span>
+        </div>
+        <dl class="divide-y divide-line text-sm">
+          <div class="flex justify-between py-2.5"><dt class="text-slate-300">Time</dt><dd id="mTime" class="font-mono">$0.00</dd></div>
+          <div class="flex justify-between py-2.5"><dt class="text-slate-300">Distance</dt><dd id="mDist" class="font-mono">$0.00</dd></div>
+          <div class="flex justify-between py-2.5"><dt class="text-slate-300">Innovation fee</dt><dd id="mFee" class="font-mono">$0.00</dd></div>
+          <div class="flex justify-between py-2.5"><dt class="text-slate-300">Tax (12%)</dt><dd id="mTax" class="font-mono">$0.00</dd></div>
+          <div id="mPvrtRow" class="flex justify-between py-2.5 hidden"><dt class="text-slate-300">PVRT</dt><dd id="mPvrt" class="font-mono">$0.00</dd></div>
+        </dl>
+        <div class="flex justify-between items-center mt-3 pt-4 border-t border-line">
+          <span class="font-display font-semibold">Total</span>
+          <span id="mTotal" class="font-mono text-4xl font-bold text-modo">$0.00</span>
+        </div>
+        <p id="mNote" class="text-xs text-slate-500 mt-3 min-h-[1rem]"></p>
+        <a href="../modo/" class="inline-block mt-3 text-sm text-modo-light underline underline-offset-2" data-track="compare_to_modo">Open the full Modo calculator →</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- Cheat sheet -->
+  <section class="rounded-2xl border border-line bg-panel p-6 md:p-8">
+    <h2 class="font-display font-semibold text-xl mb-4">Quick rules of thumb</h2>
+    <ul class="grid md:grid-cols-2 gap-x-10 gap-y-3 text-sm text-slate-300">
+      <li><span class="text-modo-light font-semibold">Standing time favours Modo.</span> It costs $5–6 an hour, while Evo's meter keeps running at up to $17.99 an hour even when you are parked.</li>
+      <li><span class="text-evo font-semibold">Distance favours Evo.</span> Its rates include gas, insurance and unlimited km, while Modo adds 35¢ for every kilometre.</li>
+      <li><span class="font-semibold text-white">Day Tripper km run out.</span> Modo includes 500 km a day on Plus and 250 on Monthly, then charges 35¢ per extra km, so very long drives usually flip to Evo.</li>
+      <li><span class="font-semibold text-white">Bookings of 3+ days favour Evo.</span> Its 3-day ($264.99) and 5-day ($424.99) rates undercut Modo's Day Tripper, even before any kilometres.</li>
+    </ul>
+    <p class="text-xs text-slate-600 mt-5">Estimates only. Evo has no kilometre cap. Modo overnight caps and fuel surcharges are not modelled. Not affiliated with Evo or Modo.</p>
+  </section>
+</main>
+
+<div id="referral-bar" class="mb-12"></div>
+
+<div id="feedback" class="mb-12"></div>
+
+<footer class="max-w-6xl mx-auto px-5 pb-12 text-center text-xs text-slate-600 leading-relaxed">
+  Independent estimate tool for planning purposes only. Not affiliated with, sponsored by, or endorsed by Evo Car Share or Modo Co-operative. I'm a student and earn a small referral bonus when you sign up with my Evo code.
+  © <span id="year"></span> vancouvercarsharecalculator.com
+</footer>
+
+<script src="../assets/pricing.js"></script>
+<script src="../assets/site.js"></script>
+<script>
+(function () {
+  var P = window.Pricing;
+  var $ = function (id) { return document.getElementById(id); };
+  var fmt = function (n) { return '$' + n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+  var dur = $('durInput'), durS = $('durSlider'), km = $('kmInput'), kmS = $('kmSlider');
+  var trackTimer = null;
+
+  function num(el) { var v = parseFloat(el.value); return isNaN(v) || v < 0 ? 0 : v; }
+
+  function render(fromUser) {
+    var hours = num(dur), kms = num(km);
+    var e = P.evoQuote(hours * 60, { bcaa: $('bcaa').checked });
+    var m = P.modoQuote({ hours: hours, km: kms, plan: $('plan').value, vehicle: $('vehicle').value, ev: $('ev').checked });
+
+    $('eTrip').textContent = fmt(e.trip); $('eFee').textContent = fmt(e.fee); $('eTax').textContent = fmt(e.tax); $('eTotal').textContent = fmt(e.total);
+    $('mTime').textContent = fmt(m.time); $('mDist').textContent = fmt(m.dist); $('mFee').textContent = fmt(m.fee); $('mTax').textContent = fmt(m.tax); $('mTotal').textContent = fmt(m.total);
+    toggleRow('ePvrtRow', 'ePvrt', e.pvrt); toggleRow('mPvrtRow', 'mPvrt', m.pvrt);
+    $('eNote').textContent = e.note;
+    $('mNote').textContent = m.mode === 'dayTripper' ? 'Day Tripper applied automatically.' : '';
+
+    $('durLabel').textContent = hours >= 24 ? (hours / 24).toFixed(1).replace('.0', '') + ' days' : '';
+
+    var diff = P.round2(Math.abs(e.total - m.total));
+    var eb = $('evoBadge'), mb = $('modoBadge'), v = $('verdictText'), vs = $('verdictSub');
+    eb.classList.add('hidden'); mb.classList.add('hidden');
+    $('evoCard').style.opacity = '1'; $('modoCard').style.opacity = '1';
+
+    if (hours <= 0) {
+      v.textContent = 'Enter a trip to compare'; v.className = 'font-display font-semibold text-2xl md:text-3xl text-slate-300'; vs.textContent = '';
+    } else if (diff < 0.005) {
+      v.textContent = 'Dead heat: both cost ' + fmt(e.total); v.className = 'font-display font-semibold text-2xl md:text-3xl text-white'; vs.textContent = 'Pick whichever fits the trip better.';
+    } else if (e.total < m.total) {
+      v.textContent = 'Evo saves you ' + fmt(diff); v.className = 'font-display font-semibold text-2xl md:text-3xl text-evo';
+      vs.textContent = 'Evo ' + fmt(e.total) + ' vs Modo ' + fmt(m.total);
+      eb.classList.remove('hidden'); $('modoCard').style.opacity = '.75';
+    } else {
+      v.textContent = 'Modo saves you ' + fmt(diff); v.className = 'font-display font-semibold text-2xl md:text-3xl text-modo-light';
+      vs.textContent = 'Modo ' + fmt(m.total) + ' vs Evo ' + fmt(e.total) + ' · Modo is round-trip only, so this only applies if you return the car to where you started';
+      mb.classList.remove('hidden'); $('evoCard').style.opacity = '.75';
+    }
+
+    // where does the winner flip? (Evo ignores distance, Modo does not)
+    var be = $('breakEven'), why = $('whyText');
+    if (hours > 0) {
+      var span = (hours >= 24 ? +(hours / 24).toFixed(2) + (hours === 24 ? ' day' : ' days') : +hours.toFixed(2) + (hours === 1 ? ' hour' : ' hours'));
+      var r = P.modoBreakEvenKm(hours, { plan: $('plan').value, vehicle: $('vehicle').value, ev: $('ev').checked }, e.total);
+      if (r.kind === 'evoAlways') be.innerHTML = 'For a ' + span + ' booking, <b class="text-evo">Evo is cheaper at any distance</b>: Modo already costs more before you drive a single kilometre.';
+      else if (r.kind === 'modoAlways') be.innerHTML = 'For a ' + span + ' booking, <b class="text-modo-light">Modo stays cheaper at any realistic distance</b> (even past 5,000 km).';
+      else be.innerHTML = 'For a ' + span + ' booking, <b class="text-modo-light">Modo is cheaper up to about ' + r.km + ' km</b>. Beyond that, <b class="text-evo">Evo wins</b>.';
+      why.textContent = 'Evo charges ' + fmt(e.trip) + ' for the time and nothing for distance. Modo charges ' + fmt(m.time) + ' for the time plus ' + fmt(m.dist) + ' for ' + +kms.toFixed(1) + ' km.';
+    } else { be.textContent = ''; why.textContent = ''; }
+
+    // One analytics event after the visitor pauses (not per keystroke), and only for real
+    // interactions: simply opening the page must not count as a comparison.
+    if (fromUser === true) {
+      clearTimeout(trackTimer);
+      trackTimer = setTimeout(function () {
+        if (hours > 0) window.track('calculate_comparison', { hours: hours, km: kms, winner: e.total <= m.total ? 'evo' : 'modo', difference: diff });
+      }, 1500);
+    }
+  }
+
+  function toggleRow(rowId, valId, amount) {
+    var row = $(rowId);
+    if (amount > 0) { row.classList.remove('hidden'); $(valId).textContent = fmt(amount); } else row.classList.add('hidden');
+  }
+
+  function syncDur() { var v = parseFloat(dur.value); if (!isNaN(v)) durS.value = Math.min(v, 48); }
+  function syncKm() { var v = parseFloat(km.value); if (!isNaN(v)) kmS.value = Math.min(v, 600); }
+
+  durS.addEventListener('input', function () { dur.value = durS.value; render(true); });
+  dur.addEventListener('input', function () { syncDur(); render(true); });
+  kmS.addEventListener('input', function () { km.value = kmS.value; render(true); });
+  km.addEventListener('input', function () { syncKm(); render(true); });
+  ['plan', 'vehicle', 'ev', 'bcaa'].forEach(function (id) { $(id).addEventListener('change', function () { render(true); }); });
+
+  document.addEventListener('click', function (ev) {
+    var el = ev.target.closest('[data-track]');
+    if (el) window.track(el.getAttribute('data-track'));
+  });
+
+  // one-click example trips
+  function setTrip(h, k) {
+    dur.value = h; km.value = k; syncDur(); syncKm(); render(true);
+  }
+  $('scenarios').innerHTML = P.SCENARIOS.filter(function (s) { return !s.oneWay; }).map(function (s) {
+    return '<button type="button" data-h="' + s.hours + '" data-km="' + s.km + '" class="text-xs px-3 py-1.5 rounded-full border border-line text-slate-300 hover:border-white/50 hover:text-white transition" title="' + s.kind + ': ' + s.hours + ' h, ' + s.km + ' km">' + s.label + '</button>';
+  }).join('');
+  $('scenarios').querySelectorAll('button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      setTrip(b.getAttribute('data-h'), b.getAttribute('data-km'));
+      window.track('compare_example_trip', { label: b.textContent });
+    });
+  });
+
+  // links from the hub (?h=2&km=8) pre-fill the trip
+  try {
+    var q = new URLSearchParams(location.search);
+    var qh = parseFloat(q.get('h')), qk = parseFloat(q.get('km'));
+    if (!isNaN(qh) && qh >= 0) dur.value = qh;
+    if (!isNaN(qk) && qk >= 0) km.value = qk;
+    syncDur(); syncKm();
+  } catch (e) { /* older browsers: keep the defaults */ }
+
+  render();
+})();
+</script>
+</body>
+</html>

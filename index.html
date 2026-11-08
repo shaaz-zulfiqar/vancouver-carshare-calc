@@ -6,6 +6,10 @@
 <title>Vancouver Car Share Calculator — Evo and Modo Trip Costs Compared</title>
 <meta name="description" content="Free Vancouver car share calculators for Evo and Modo. Estimate trip costs with BC taxes and fees, or compare Evo vs Modo side by side to see which is cheaper.">
 <link rel="canonical" href="https://vancouvercarsharecalculator.com/">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Vancouver Car Share Calculator">
 <meta property="og:title" content="Vancouver Car Share Calculator — Evo and Modo Trip Costs Compared">
@@ -69,7 +73,7 @@
 
   <!-- Three core cards -->
   <section class="grid md:grid-cols-3 gap-5 mb-14" aria-label="Calculators">
-    <a href="evo/evocalculator.html" class="card-lift group rounded-2xl p-px bg-gradient-to-b from-evo/70 to-line hover:shadow-[0_20px_50px_-20px_rgba(107,184,224,.5)]">
+    <a href="evo/" class="card-lift group rounded-2xl p-px bg-gradient-to-b from-evo/70 to-line hover:shadow-[0_20px_50px_-20px_rgba(107,184,224,.5)]">
       <div class="h-full rounded-[15px] bg-gradient-to-b from-[#0e1a22] to-panel p-6 flex flex-col">
         <span class="text-xs font-semibold tracking-[0.18em] uppercase text-evo mb-3">Evo</span>
         <h2 class="font-display font-semibold text-2xl mb-2">Evo Calculator</h2>
@@ -81,7 +85,7 @@
       </div>
     </a>
 
-    <a href="modo/modocalculator.html" class="card-lift group rounded-2xl p-px bg-gradient-to-b from-modo/70 to-line hover:shadow-[0_20px_50px_-20px_rgba(227,24,55,.5)]">
+    <a href="modo/" class="card-lift group rounded-2xl p-px bg-gradient-to-b from-modo/70 to-line hover:shadow-[0_20px_50px_-20px_rgba(227,24,55,.5)]">
       <div class="h-full rounded-[15px] bg-gradient-to-b from-[#1b1118] to-panel p-6 flex flex-col">
         <span class="text-xs font-semibold tracking-[0.18em] uppercase text-modo-light mb-3">Modo</span>
         <h2 class="font-display font-semibold text-2xl mb-2">Modo Calculator</h2>
@@ -93,7 +97,7 @@
       </div>
     </a>
 
-    <a href="compare/compare.html" class="card-lift group rounded-2xl p-px bg-gradient-to-br from-evo/70 via-line to-modo/70 hover:shadow-[0_20px_50px_-20px_rgba(255,255,255,.25)]">
+    <a href="compare/" class="card-lift group rounded-2xl p-px bg-gradient-to-br from-evo/70 via-line to-modo/70 hover:shadow-[0_20px_50px_-20px_rgba(255,255,255,.25)]">
       <div class="h-full rounded-[15px] bg-gradient-to-br from-[#0e1a22] via-panel to-[#1b1118] p-6 flex flex-col">
         <span class="text-xs font-semibold tracking-[0.18em] uppercase text-slate-300 mb-3">Head to head</span>
         <h2 class="font-display font-semibold text-2xl mb-2">Evo vs Modo</h2>
@@ -137,7 +141,7 @@
         </tbody>
       </table>
     </div>
-    <p class="text-xs text-slate-600 mt-4">A guide, not advice. Run your actual trip through <a href="compare/compare.html" class="underline underline-offset-2 text-slate-400">the comparison tool</a>.</p>
+    <p class="text-xs text-slate-600 mt-4">A guide, not advice. Run your actual trip through <a href="compare/" class="underline underline-offset-2 text-slate-400">the comparison tool</a>.</p>
   </section>
 
   <!-- Cost: standing time vs distance -->
@@ -183,7 +187,7 @@
     </div>
     <div class="flex flex-wrap items-center justify-between gap-3 mt-4">
       <button type="button" id="exMore" class="text-sm font-semibold text-slate-300 hover:text-white underline underline-offset-4"></button>
-      <a href="compare/compare.html" class="text-sm font-semibold text-white hover:underline underline-offset-4">Compare your own trip →</a>
+      <a href="compare/" class="text-sm font-semibold text-white hover:underline underline-offset-4">Compare your own trip →</a>
     </div>
     <p class="text-xs text-slate-600 mt-4">Totals include fees and 12% tax. Assumes a Modo Daily Drive gas vehicle and no BCAA discount. Evo has no kilometre cap.</p>
   </section>
@@ -197,7 +201,7 @@
         <p class="text-xs font-semibold tracking-[0.16em] uppercase text-evo mb-3">Evo</p>
         <ul class="space-y-3 text-sm text-slate-300">
           <li><span class="font-semibold text-white">BCAA members:</span> free registration (normally $35) and 10% off driving rates, up to $110 a year. <a class="text-evo underline underline-offset-2" href="https://evo.ca/rates" target="_blank" rel="noopener">evo.ca/rates</a></li>
-          <li><span class="font-semibold text-white">Multi-day rates:</span> 3 days for $264.99 ($50 off) and 5 days for $424.99 ($100 off). Built into the <a class="text-evo underline underline-offset-2" href="evo/evocalculator.html">Evo calculator</a>.</li>
+          <li><span class="font-semibold text-white">Multi-day rates:</span> 3 days for $264.99 ($50 off) and 5 days for $424.99 ($100 off). Built into the <a class="text-evo underline underline-offset-2" href="evo/">Evo calculator</a>.</li>
         </ul>
       </div>
       <div class="rounded-xl border border-modo/30 bg-modo/5 p-5">
@@ -244,7 +248,7 @@
                       : '<span class="text-modo-light font-semibold">Modo</span> <span class="text-slate-500">by ' + money(diff) + '</span>';
       var extra = FEATURED.indexOf(s.id) === -1;
       return '<tr class="hover:bg-white/[0.03]"' + (extra && !showAll ? ' hidden' : '') + '>' +
-        '<td class="py-3 pr-4">' + (s.oneWay ? '<span class="text-slate-200">' + s.label + '</span>' : '<a href="compare/compare.html?h=' + s.hours + '&km=' + s.km + '" class="text-slate-200 hover:text-white underline-offset-2 hover:underline">' + s.label + '</a>') +
+        '<td class="py-3 pr-4">' + (s.oneWay ? '<span class="text-slate-200">' + s.label + '</span>' : '<a href="compare/?h=' + s.hours + '&km=' + s.km + '" class="text-slate-200 hover:text-white underline-offset-2 hover:underline">' + s.label + '</a>') +
           '<span class="block text-xs text-slate-500">' + s.kind + '</span></td>' +
         '<td class="py-3 px-3 text-right font-mono text-slate-300">' + hoursLabel(s.hours) + '</td>' +
         '<td class="py-3 px-3 text-right font-mono text-slate-300">' + s.km + '</td>' +
