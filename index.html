@@ -25,19 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: { extend: {
-      colors: {
-        evo: { DEFAULT: '#6BB8E0', light: '#A8DAF3', deep: '#3C9ACF' },
-        modo: { DEFAULT: '#E31837', light: '#FF5A70', deep: '#B30F29' },
-        panel: '#111723', line: '#222b3d'
-      },
-      fontFamily: { display: ['"Space Grotesk"', 'sans-serif'], body: ['Inter', 'sans-serif'], mono: ['"JetBrains Mono"', 'monospace'] }
-    } }
-  }
-</script>
+<link rel="stylesheet" href="assets/tailwind.css">
 <style>
   body{ background:#0B0F19; }
   .hero-glow{ background:
@@ -72,7 +60,7 @@
   </header>
 
   <!-- Three core cards -->
-  <section class="grid md:grid-cols-3 gap-5 mb-14" aria-label="Calculators">
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14" aria-label="Calculators">
     <a href="evo/" class="card-lift group rounded-2xl p-px bg-gradient-to-b from-evo/70 to-line hover:shadow-[0_20px_50px_-20px_rgba(107,184,224,.5)]">
       <div class="h-full rounded-[15px] bg-gradient-to-b from-[#0e1a22] to-panel p-6 flex flex-col">
         <span class="text-xs font-semibold tracking-[0.18em] uppercase text-evo mb-3">Evo</span>
@@ -91,7 +79,7 @@
         <h2 class="font-display font-semibold text-2xl mb-2">Modo Calculator</h2>
         <p class="text-sm text-slate-400 mb-6"><strong class="text-slate-200">Round-trip only</strong> (return to where you started). Hourly plus kilometre tiers and the Day Tripper rate.</p>
         <ul class="text-xs text-slate-300 space-y-1.5 mb-6">
-          <li>Plus vs Monthly plans</li><li>Auto Day Tripper pricing</li><li>Daily Drive or Large &amp; Loadable</li>
+          <li>Plus vs Monthly plans</li><li>Day Tripper on 24 h+ bookings</li><li>Daily Drive or Large &amp; Loadable</li>
         </ul>
         <span class="mt-auto text-sm font-semibold text-modo-light group-hover:translate-x-1 transition">Open calculator →</span>
       </div>
@@ -132,7 +120,7 @@
           <tr><td class="py-3 pr-4 text-slate-300">Spur-of-the-moment trip</td><td class="py-3 px-4">✅ Find one nearby and go, billed per minute</td><td class="py-3 pl-4 text-slate-500">30-minute minimum booking, returned to the same spot</td></tr>
           <tr><td class="py-3 pr-4 text-slate-300">Lots of standing time (appointments, shopping, long stops)</td><td class="py-3 px-4 text-slate-500">Meter keeps running, up to $17.99/hr</td><td class="py-3 pl-4">✅ $5–6/hr while parked</td></tr>
           <tr><td class="py-3 pr-4 text-slate-300">Mostly driving, lots of km per hour</td><td class="py-3 px-4">✅ No per-km charge</td><td class="py-3 pl-4 text-slate-500">35¢/km adds up</td></tr>
-          <tr><td class="py-3 pr-4 text-slate-300">Long day, distance under the km allowance</td><td class="py-3 px-4 text-slate-500">$104.99 day rate</td><td class="py-3 pl-4">✅ Day Tripper $100, 500 or 250 km included</td></tr>
+          <tr><td class="py-3 pr-4 text-slate-300">Long day, distance under the km allowance</td><td class="py-3 px-4 text-slate-500">$104.99 day rate</td><td class="py-3 pl-4">✅ Day Tripper $100 on 24 h+ bookings, 500 or 250 km included</td></tr>
           <tr><td class="py-3 pr-4 text-slate-300">Long distance, past the km allowance</td><td class="py-3 px-4">✅ Cheaper (unlimited km &amp; fuel included)</td><td class="py-3 pl-4 text-slate-500">35¢ for every extra km</td></tr>
           <tr><td class="py-3 pr-4 text-slate-300">Trip of 3 days or more</td><td class="py-3 px-4">✅ 3-day ($264.99) and 5-day ($424.99) rates</td><td class="py-3 pl-4 text-slate-500">$100/day, plus 35¢/km past the allowance</td></tr>
           <tr><td class="py-3 pr-4 text-slate-300">Gas, insurance and parking</td><td class="py-3 px-4">✅ All included in the rate</td><td class="py-3 pl-4 text-slate-500">Fuel surcharge when gas is over $2.10/L</td></tr>
@@ -149,7 +137,7 @@
     <h2 class="font-display font-semibold text-2xl mb-1">Which is cheaper: standing time or distance?</h2>
     <p class="text-slate-400 text-sm mb-6 max-w-3xl">Evo bills for <span class="text-evo font-semibold">time only</span>. Modo bills for <span class="text-modo-light font-semibold">time plus distance</span>. So the winner depends on how much of your booking is spent standing still and how far you actually drive.</p>
 
-    <div class="grid md:grid-cols-2 gap-4 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
       <div class="rounded-xl border border-modo/30 bg-modo/5 p-5">
         <p class="text-xs font-semibold tracking-[0.16em] uppercase text-modo-light mb-2">Standing time favours Modo</p>
         <p class="text-sm text-slate-300">Modo's hourly rate is <span class="font-mono">$5</span> (Plus) or <span class="font-mono">$6</span> (Monthly). Evo's meter runs at up to <span class="font-mono">$17.99</span> an hour whether you are driving or parked. Appointments, shopping and long stops are where Modo saves the most.</p>
@@ -198,7 +186,7 @@
   <section id="offers" class="rounded-2xl border border-line bg-panel p-6 md:p-8 mb-8">
     <h2 class="font-display font-semibold text-2xl mb-1">Current offers</h2>
     <p class="text-sm text-slate-400 mb-6">Checked against the official Evo and Modo sites on November 7, 2026. Offers change, so confirm on the provider's page before you sign up.</p>
-    <div class="grid md:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="rounded-xl border border-evo/30 bg-evo/5 p-5">
         <p class="text-xs font-semibold tracking-[0.16em] uppercase text-evo mb-3">Evo</p>
         <ul class="space-y-3 text-sm text-slate-300">
@@ -225,7 +213,7 @@
 
 <footer class="max-w-6xl mx-auto px-5 pb-12 text-center text-xs text-slate-600 leading-relaxed">
   Independent estimate tool for planning purposes only. Not sponsored or endorsed by Evo Car Share or Modo Co-operative. I'm a student and earn a small referral bonus when you sign up with my Evo code.
-  Rates last reviewed November 2026. © <span id="year"></span> vancouvercarsharecalculator.com
+  Rates last reviewed <span data-reviewed>November 2026</span>. © <span id="year"></span> vancouvercarsharecalculator.com
 </footer>
 
 <script src="assets/pricing.js"></script>

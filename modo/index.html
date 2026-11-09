@@ -25,23 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: { extend: {
-      colors: {
-        modo: { DEFAULT: '#E31837', light: '#FF5A70', deep: '#B30F29' },
-        slate: { 950: '#0B0F19' },
-        panel: '#111723', panel2: '#151c2b', line: '#222b3d'
-      },
-      fontFamily: {
-        display: ['"Space Grotesk"', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace']
-      }
-    } }
-  }
-</script>
+<link rel="stylesheet" href="../assets/tailwind.css">
 <style>
   body{ background:#0B0F19; }
   input[type=range]{ -webkit-appearance:none; height:6px; border-radius:999px; background:#222b3d; }
@@ -70,7 +54,7 @@
       Plan your Modo trip
       <span class="block bg-gradient-to-r from-modo-light via-modo to-modo-deep bg-clip-text text-transparent">hours, km and the Day Tripper</span>
     </h1>
-    <p class="text-slate-400 max-w-xl mx-auto">You pay for booked hours plus kilometres. The calculator switches to the Day Tripper automatically whenever it is cheaper.</p>
+    <p class="text-slate-400 max-w-xl mx-auto">You pay for booked hours plus kilometres. For bookings of 24 hours or more, the calculator switches to the Day Tripper automatically whenever it is cheaper.</p>
   </header>
 
   <div role="note" class="mb-6 rounded-xl px-4 py-3 text-sm flex gap-3 items-start" style="border:1px solid rgba(251,191,36,.45);background:rgba(251,191,36,.08);color:#fde68a"><span aria-hidden="true">↔</span><p><strong class="text-white">Going one way? Choose Evo.</strong> Modo is round-trip only: the car must be returned to the spot you picked it up from, so Modo is never an option for a one-way trip. If you need to leave the car at your destination, use <a href="../evo/" class="underline underline-offset-2 text-white">Evo</a> instead.</p></div>
@@ -102,7 +86,7 @@
   </section>
 
   <!-- Calculator + receipt -->
-  <section class="grid lg:grid-cols-2 gap-6 mb-8 items-start">
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 items-start">
 
     <div class="rounded-2xl border border-line bg-panel p-6 md:p-8 space-y-7">
 
@@ -190,7 +174,7 @@
           <dd id="rTax" class="font-mono">$0.00</dd>
         </div>
         <div id="pvrtRow" class="flex justify-between gap-4 py-3 hidden">
-          <dt class="text-slate-300">Passenger Vehicle Rental Tax</dt>
+          <dt class="text-slate-300">Passenger Vehicle Rental Tax <span class="text-xs text-slate-500">(incl. GST)</span></dt>
           <dd id="rPvrt" class="font-mono">$0.00</dd>
         </div>
       </dl>
@@ -209,7 +193,7 @@
   <!-- Rates reference -->
   <section class="rounded-2xl border border-line bg-panel p-6 md:p-8 mb-8">
     <h2 class="font-display font-semibold text-xl mb-1">Modo rates used in this calculator</h2>
-    <p class="text-sm text-slate-500 mb-5">The Day Tripper applies automatically to whole-day bookings and covers both time and included distance. Extra hours bill at regular rates and extra km at 35¢.</p>
+    <p class="text-sm text-slate-500 mb-5">The Day Tripper is Modo’s reduced rate for whole-day bookings and covers both time and included distance. Modo doesn’t publish a minimum booking length for it, so this calculator conservatively applies it only to bookings of 24 hours or more. Extra hours bill at regular rates and extra km at 35¢.</p>
     <div class="overflow-x-auto">
       <table class="w-full text-sm min-w-[520px]">
         <thead><tr class="text-left text-slate-500 border-b border-line"><th class="py-2 font-medium">Vehicle</th><th class="py-2 font-medium text-right">Plus /hr</th><th class="py-2 font-medium text-right">Monthly /hr</th><th class="py-2 font-medium text-right">Day Tripper</th></tr></thead>
@@ -219,12 +203,12 @@
         </tbody>
       </table>
     </div>
-    <ul class="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-2 text-sm text-slate-300">
+    <ul class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-sm text-slate-300">
       <li><span class="font-semibold text-white">Distance:</span> 35¢ per km</li>
       <li><span class="font-semibold text-white">Day Tripper km included:</span> 500/day (Plus), 250/day (Monthly)</li>
       <li><span class="font-semibold text-white">Co-op innovation fee:</span> $1 per EV trip, $3 per gas trip</li>
       <li><span class="font-semibold text-white">Taxes:</span> 12% (5% GST + 7% PST)</li>
-      <li><span class="font-semibold text-white">PVRT:</span> $1.50 for bookings of 8+ hours, then per 24 hours</li>
+      <li><span class="font-semibold text-white">PVRT:</span> $1.50 per 24 hours (a part day counts) on rentals longer than 8 hours, up to 28 days, plus 5% GST on that tax</li>
       <li><span class="font-semibold text-white">Plan costs:</span> Plus $500 refundable share; Monthly $6/month admin fee</li>
     </ul>
   </section>
@@ -232,7 +216,7 @@
   <section class="rounded-2xl border border-line bg-panel p-6 md:p-8">
     <h2 class="font-display font-semibold text-xl mb-4">Modo FAQ</h2>
     <div class="divide-y divide-line">
-      <div class="py-4"><p class="font-semibold text-sm mb-1.5">When does the Day Tripper kick in?</p><p class="text-sm text-slate-400">Whenever it costs less than regular hourly plus distance charges for your plan. For example, a long day of 12+ hours often lands on the $100 day rate. It includes 500 km a day on Plus and 250 km on Monthly, and every extra kilometre is 35¢, so very long drives can still get expensive. The calculator compares both options and shows the cheaper one.</p></div>
+      <div class="py-4"><p class="font-semibold text-sm mb-1.5">When does the Day Tripper kick in?</p><p class="text-sm text-slate-400">Modo describes it as a rate for whole-day bookings but doesn’t publish a minimum length, so this calculator uses it only for bookings of 24 hours or more, and only when it costs less than regular hourly plus distance charges for your plan. For a shorter booking it uses regular rates and tells you if booking a full 24 hours would cost less (confirm with Modo first). It includes 500 km a day on Plus and 250 km on Monthly, and every extra kilometre is 35¢, so very long drives can still get expensive. The calculator compares both options and shows the cheaper one.</p></div>
       <div class="py-4"><p class="font-semibold text-sm mb-1.5">Why is distance a separate charge?</p><p class="text-sm text-slate-400">Modo bills for booked time and kilometres driven, so a short errand with a long drive can cost more than the hours suggest.</p></div>
       <div class="py-4"><p class="font-semibold text-sm mb-1.5">Should I pick Modo or Evo?</p><p class="text-sm text-slate-400">It depends on standing time versus distance. Modo is cheaper when much of your booking is spent parked ($5–6 an hour versus Evo's meter of up to $17.99), while Evo is cheaper when you cover a lot of kilometres, since it has no per-km charge. <a href="../compare/" class="text-modo-light underline underline-offset-2">Compare both for your trip</a> to see the exact distance where the winner flips.</p></div>
       <div class="py-4"><p class="font-semibold text-sm mb-1.5">Is this site affiliated with Modo?</p><p class="text-sm text-slate-400">No. This is an independent estimate tool, not owned, sponsored or endorsed by Modo Co-operative.</p></div>
@@ -246,7 +230,7 @@
 
 <footer class="max-w-6xl mx-auto px-5 pb-12 text-center text-xs text-slate-600 leading-relaxed">
   Independent estimate tool for planning purposes only. Not sponsored or endorsed by Modo Co-operative or Evo Car Share. I'm a student and earn a small referral bonus when you sign up with my Evo code.
-  Rates last reviewed November 2026; verify current pricing on modo.coop. © <span id="year"></span> vancouvercarsharecalculator.com
+  Rates last reviewed <span data-reviewed>November 2026</span>; verify current pricing on modo.coop. © <span id="year"></span> vancouvercarsharecalculator.com
 </footer>
 
 <script src="../assets/pricing.js"></script>
@@ -301,7 +285,8 @@
     if (q.mode === 'dayTripper' && q.saved > 0) { sb.textContent = 'Day Tripper saves you ' + fmt(q.saved) + ' before tax compared with regular hourly + km rates.'; sb.classList.remove('hidden'); }
     else sb.classList.add('hidden');
 
-    $('modoNote').textContent = q.note;
+    var mn = $('modoNote'); mn.textContent = q.note;
+    mn.style.color = q.overMax ? '#fde68a' : ''; mn.style.fontWeight = q.overMax ? '600' : '';
   }
 
   function syncDurSlider() { var v = parseFloat(dur.value); if (!isNaN(v)) durS.value = Math.min(v, parseFloat(durS.max)); }

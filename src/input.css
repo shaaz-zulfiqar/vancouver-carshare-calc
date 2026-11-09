@@ -1,0 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Defaults used by the home, Modo and Compare pages. Evo pages override these in their own <style>. */
+:root { --panel: 17 23 35; --panel2: 21 28 43; --line: 34 43 61; }

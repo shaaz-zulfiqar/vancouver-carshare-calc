@@ -1,13 +1,16 @@
 /* Vancouver Car Share Calculator — shared pricing engine
  * One source of truth for Evo, Modo and the comparison tool.
  * Works in the browser (window.Pricing) and in Node (module.exports) for testing.
- * Rates last reviewed: November 2026. Update the constants below when rates change.
+ * Rates last reviewed: see SITE_CONFIG.ratesReviewed in site.js (update it only after you have actually re-checked the rates).
  */
 (function (root) {
   'use strict';
 
   var TAX_RATE = 0.12;                    // 5% GST + 7% PST
-  var PVRT = { amount: 1.5, minHours: 8 }; // Passenger Vehicle Rental Tax: $1.50 for bookings 8h+, then per 24h period
+  // Passenger Vehicle Rental Tax (BC): $1.50 per 24h period (a part day counts as a full day) on rentals LONGER than 8
+  // consecutive hours and up to 28 consecutive days. Rentals of 8 hours or less, or longer than 28 days, are exempt.
+  // GST (5%) is charged on the PVRT itself; PST is not.
+  var PVRT = { amount: 1.5, exemptUpToHours: 8, maxDays: 28, gst: 0.05 };
 
   var EVO = {
     perMin: 0.49,
@@ -23,6 +26,9 @@
     perKm: 0.35,
     hourly: { daily: { plus: 5, monthly: 6 }, large: { plus: 7, monthly: 8 } },
     dayTripper: { daily: 100, large: 135 },   // per 24h, covers time + included km
+    // ASSUMPTION: Modo says the Day Tripper applies to "whole-day bookings" but does not publish a minimum. This
+    // calculator conservatively applies it only to bookings of 24 hours or more. Change here if Modo confirms otherwise.
+    dayTripperMinHours: 24,
     includedKm: { plus: 500, monthly: 250 },  // per 24h of booked time
     innovationFee: { ev: 1, gas: 3 },         // per trip
     maxDays: 10
@@ -32,9 +38,11 @@
   function fmt(n) { return n.toFixed(2); }
   function clean(n) { return String(+Number(n).toFixed(2)); }
 
-  // Passenger Vehicle Rental Tax: $1.50 once a booking reaches 8 hours, then each consecutive 24h period.
+  // PVRT including its 5% GST, rounded to cents. Returns 0 when the booking is exempt.
   function pvrt(hours) {
-    return hours >= PVRT.minHours ? round2(Math.ceil(hours / 24) * PVRT.amount) : 0;
+    if (!(hours > PVRT.exemptUpToHours) || hours > PVRT.maxDays * 24) return 0;
+    var base = round2(Math.ceil(hours / 24 - 1e-9) * PVRT.amount);
+    return round2(base + round2(base * PVRT.gst));
   }
 
   /* ------------------------------------------------------------------ EVO */
@@ -147,7 +155,7 @@
     var empty = {
       mode: 'regular', days: 0, time: 0, dist: 0, fee: 0, tax: 0, pvrt: 0, total: 0,
       regularSub: 0, bestSub: 0, saved: 0, rate: rate, dayRate: day, included: inc,
-      timeDetail: '', distDetail: '', note: ''
+      timeDetail: '', distDetail: '', note: '', dayTripperHint: null, overMax: false
     };
     if (hours <= 0) return empty;
 
@@ -161,20 +169,16 @@
       clean(hours) + ' h × $' + fmt(rate) + '/hr',
       clean(km) + ' km × $0.35'));
 
+    // Day Tripper only for bookings of 24 hours or more (conservative assumption, see MODO.dayTripperMinHours).
+    // Extra hours beyond whole days bill at the regular hourly rate.
     var full = Math.floor(hours / 24);
-    if (full >= 1) {
+    if (hours >= MODO.dayTripperMinHours && full >= 1) {
       var rem = hours - full * 24;
       var billable = Math.max(0, km - full * inc);
       options.push(option('dayTripper', full, full * day + rem * rate, billable,
         full + ' Day Tripper day' + (full > 1 ? 's' : '') + ' × $' + fmt(day) + (rem > 0 ? ' + ' + clean(rem) + ' h × $' + fmt(rate) + '/hr' : ''),
         clean(billable) + ' km beyond ' + (full * inc) + ' km included × $0.35'));
     }
-
-    var days = Math.ceil(hours / 24);
-    var billableAll = Math.max(0, km - days * inc);
-    options.push(option('dayTripper', days, days * day, billableAll,
-      days + ' Day Tripper day' + (days > 1 ? 's' : '') + ' × $' + fmt(day),
-      clean(billableAll) + ' km beyond ' + (days * inc) + ' km included × $0.35'));
 
     var best = options.reduce(function (a, b) { return b.sub < a.sub ? b : a; });
     var regular = options[0];
@@ -192,15 +196,25 @@
       note = (note ? note + ' ' : '');
       note += 'Day Tripper applied: it covers time and up to ' + (best.days * inc) + ' km, and is cheaper than regular rates.';
     }
+    // Under 24 h: regular rates only. If a full 24 h booking would cost less, say so, but as a tip, not a quote.
+    var hint = null;
+    if (hours < MODO.dayTripperMinHours) {
+      var dt24 = option('dayTripper', 1, day, Math.max(0, km - inc), '', '');
+      if (dt24.sub < regular.sub - 0.005) {
+        hint = { sub: dt24.sub, saved: round2(regular.sub - dt24.sub) };
+        note = (note ? note + ' ' : '') + 'Booking a full 24 hours may qualify for Day Tripper pricing (about $' + fmt(dt24.sub) +
+          ' before tax for time and distance, vs $' + fmt(regular.sub) + ' now). Modo does not publish a minimum booking length for it, so confirm with Modo before relying on this.';
+      }
+    }
     if (hours > MODO.maxDays * 24) {
-      note = (note ? note + ' ' : '') + 'Modo bookings run up to ' + MODO.maxDays + ' days; contact Modo for longer trips.';
+      note = (note ? note + ' ' : '') + 'Modo asks you to contact them for bookings longer than ' + MODO.maxDays + ' days, so treat this as a rough estimate only.';
     }
 
     return {
       mode: best.mode, days: best.days, time: best.time, dist: best.dist, fee: fee, tax: tax, pvrt: pv, total: total,
       regularSub: regular.sub, bestSub: best.sub, saved: round2(regular.sub - best.sub),
       rate: rate, dayRate: day, included: inc,
-      timeDetail: best.timeDetail, distDetail: best.distDetail, note: note
+      timeDetail: best.timeDetail, distDetail: best.distDetail, note: note, dayTripperHint: hint, overMax: hours > MODO.maxDays * 24
     };
   }
 
@@ -216,7 +230,7 @@
     { id: 'valley',   label: 'Round trip to the Fraser Valley', hours: 3, km: 150, kind: 'Short, lots of kilometres' },
     { id: 'hike',     label: 'Sea-to-Sky hiking day',         hours: 8,   km: 160, kind: 'Long day, moderate distance' },
     { id: 'daytrip',  label: 'Day trip, lots of driving',     hours: 10,  km: 350, kind: 'Long day, high distance' },
-    { id: 'whistler', label: 'Whistler or Kelowna-style long day', hours: 12, km: 600, kind: 'Past the Day Tripper km limit' },
+    { id: 'whistler', label: 'Whistler or Kelowna-style long day', hours: 12, km: 600, kind: 'Long day, very high distance' },
     { id: 'roadtrip', label: 'Full 24-hour road trip',        hours: 24,  km: 700, kind: 'Well past the km limit' },
     { id: 'weekend',  label: 'Weekend away (2 days)',         hours: 48,  km: 400, kind: 'Multi-day, parked most of it' },
     { id: 'threeday', label: 'Long weekend (3 days)',         hours: 72,  km: 500, kind: '3-day rate beats Modo' },

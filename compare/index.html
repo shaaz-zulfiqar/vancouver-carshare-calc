@@ -25,24 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: { extend: {
-      colors: {
-        evo: { DEFAULT: '#6BB8E0', light: '#A8DAF3', deep: '#3C9ACF' },
-        modo: { DEFAULT: '#E31837', light: '#FF5A70', deep: '#B30F29' },
-        slate: { 950: '#0B0F19' },
-        panel: '#111723', line: '#222b3d'
-      },
-      fontFamily: {
-        display: ['"Space Grotesk"', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace']
-      }
-    } }
-  }
-</script>
+<link rel="stylesheet" href="../assets/tailwind.css">
 <style>
   body{ background:#0B0F19; }
   input[type=range]{ -webkit-appearance:none; height:6px; border-radius:999px; background:#222b3d; }
@@ -78,7 +61,7 @@
 
   <!-- Inputs -->
   <section class="rounded-2xl border border-line bg-panel p-6 md:p-8 mb-6">
-    <div class="grid md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div>
         <div class="flex items-baseline justify-between mb-3">
           <h2 class="font-display font-semibold text-sm uppercase tracking-wide text-slate-400">Trip duration</h2>
@@ -108,7 +91,7 @@
       </div>
     </div>
 
-    <div class="mt-7 pt-6 border-t border-line grid sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm">
+    <div class="mt-7 pt-6 border-t border-line grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm">
       <label class="flex flex-col gap-1.5"><span class="text-xs text-slate-500 uppercase tracking-wide">Modo plan</span>
         <select id="plan" class="bg-slate-950 border border-line rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-modo">
           <option value="plus">Modo Plus ($5/hr)</option><option value="monthly">Modo Monthly ($6/hr)</option>
@@ -138,7 +121,7 @@
   </section>
 
   <!-- Receipts -->
-  <section class="grid md:grid-cols-2 gap-6 mb-8">
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
 
     <article id="evoCard" class="rounded-2xl p-px bg-gradient-to-b from-evo/60 to-line transition">
       <div class="rounded-[15px] bg-gradient-to-b from-[#0e1a22] to-panel p-6 h-full">
@@ -150,7 +133,7 @@
           <div class="flex justify-between py-2.5"><dt class="text-slate-300">Trip charges</dt><dd id="eTrip" class="font-mono">$0.00</dd></div>
           <div class="flex justify-between py-2.5"><dt class="text-slate-300">All-Access fee</dt><dd id="eFee" class="font-mono">$0.00</dd></div>
           <div class="flex justify-between py-2.5"><dt class="text-slate-300">Tax (12%)</dt><dd id="eTax" class="font-mono">$0.00</dd></div>
-          <div id="ePvrtRow" class="flex justify-between py-2.5 hidden"><dt class="text-slate-300">PVRT</dt><dd id="ePvrt" class="font-mono">$0.00</dd></div>
+          <div id="ePvrtRow" class="flex justify-between py-2.5 hidden"><dt class="text-slate-300">PVRT <span class="text-xs text-slate-500">(incl. GST)</span></dt><dd id="ePvrt" class="font-mono">$0.00</dd></div>
         </dl>
         <div class="flex justify-between items-center mt-3 pt-4 border-t border-line">
           <span class="font-display font-semibold">Total</span>
@@ -172,7 +155,7 @@
           <div class="flex justify-between py-2.5"><dt class="text-slate-300">Distance</dt><dd id="mDist" class="font-mono">$0.00</dd></div>
           <div class="flex justify-between py-2.5"><dt class="text-slate-300">Innovation fee</dt><dd id="mFee" class="font-mono">$0.00</dd></div>
           <div class="flex justify-between py-2.5"><dt class="text-slate-300">Tax (12%)</dt><dd id="mTax" class="font-mono">$0.00</dd></div>
-          <div id="mPvrtRow" class="flex justify-between py-2.5 hidden"><dt class="text-slate-300">PVRT</dt><dd id="mPvrt" class="font-mono">$0.00</dd></div>
+          <div id="mPvrtRow" class="flex justify-between py-2.5 hidden"><dt class="text-slate-300">PVRT <span class="text-xs text-slate-500">(incl. GST)</span></dt><dd id="mPvrt" class="font-mono">$0.00</dd></div>
         </dl>
         <div class="flex justify-between items-center mt-3 pt-4 border-t border-line">
           <span class="font-display font-semibold">Total</span>
@@ -187,7 +170,7 @@
   <!-- Cheat sheet -->
   <section class="rounded-2xl border border-line bg-panel p-6 md:p-8">
     <h2 class="font-display font-semibold text-xl mb-4">Quick rules of thumb</h2>
-    <ul class="grid md:grid-cols-2 gap-x-10 gap-y-3 text-sm text-slate-300">
+    <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3 text-sm text-slate-300">
       <li><span class="text-modo-light font-semibold">Standing time favours Modo.</span> It costs $5–6 an hour, while Evo's meter keeps running at up to $17.99 an hour even when you are parked.</li>
       <li><span class="text-evo font-semibold">Distance favours Evo.</span> Its rates include gas, insurance and unlimited km, while Modo adds 35¢ for every kilometre.</li>
       <li><span class="font-semibold text-white">Day Tripper km run out.</span> Modo includes 500 km a day on Plus and 250 on Monthly, then charges 35¢ per extra km, so very long drives usually flip to Evo.</li>
@@ -203,7 +186,7 @@
 
 <footer class="max-w-6xl mx-auto px-5 pb-12 text-center text-xs text-slate-600 leading-relaxed">
   Independent estimate tool for planning purposes only. Not sponsored or endorsed by Evo Car Share or Modo Co-operative. I'm a student and earn a small referral bonus when you sign up with my Evo code.
-  © <span id="year"></span> vancouvercarsharecalculator.com
+  Rates last reviewed <span data-reviewed>November 2026</span>; verify current pricing on evo.ca and modo.coop. © <span id="year"></span> vancouvercarsharecalculator.com
 </footer>
 
 <script src="../assets/pricing.js"></script>
@@ -227,7 +210,8 @@
     $('mTime').textContent = fmt(m.time); $('mDist').textContent = fmt(m.dist); $('mFee').textContent = fmt(m.fee); $('mTax').textContent = fmt(m.tax); $('mTotal').textContent = fmt(m.total);
     toggleRow('ePvrtRow', 'ePvrt', e.pvrt); toggleRow('mPvrtRow', 'mPvrt', m.pvrt);
     $('eNote').textContent = e.note;
-    $('mNote').textContent = m.mode === 'dayTripper' ? 'Day Tripper applied automatically.' : '';
+    $('mNote').textContent = m.mode === 'dayTripper' ? 'Day Tripper applied automatically.' : ((m.dayTripperHint || m.overMax) ? m.note : '');
+    $('mNote').style.color = m.overMax ? '#fde68a' : ''; $('mNote').style.fontWeight = m.overMax ? '600' : '';
 
     $('durLabel').textContent = hours >= 24 ? (hours / 24).toFixed(1).replace('.0', '') + ' days' : '';
 
