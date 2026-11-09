@@ -73,24 +73,65 @@ var SITE_CONFIG = {
     { id: 'compare', label: 'Compare', path: 'compare/', dot: 'linear-gradient(90deg,#6BB8E0,#E31837)' }
   ];
 
+  var EVO_MENU = [
+    { path: 'evo/', label: 'Evo calculator' },
+    { path: 'evo/rates/', label: 'Evo rates' },
+    { path: 'evo/airport/', label: 'Evo to YVR airport' },
+    { path: 'evo/victoria/', label: 'Evo Victoria' },
+    { path: 'evo/nanaimo/', label: 'Evo Nanaimo' }
+  ];
+
   function renderNav() {
     var host = document.getElementById('site-nav');
     if (!host) return;
     var active = document.body.getAttribute('data-page') || '';
+    var linkCls = function (on) {
+      return 'flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition ' +
+        (on ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5');
+    };
     var links = NAV.map(function (n) {
       var on = n.id === active;
-      return '<a href="' + BASE + n.path + '" class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition ' +
-        (on ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5') + '">' +
+      var a = '<a data-top href="' + BASE + n.path + '" class="' + linkCls(on) + '">' +
         '<span class="w-2 h-2 rounded-full" style="background:' + n.dot + '"></span>' + n.label + '</a>';
+      if (n.id !== 'evo') return a;
+      // Evo gets a dropdown: hover (desktop), tap the arrow (phones), or keyboard.
+      var items = EVO_MENU.map(function (m) {
+        return '<a role="menuitem" href="' + BASE + m.path + '" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/5">' + m.label + '</a>';
+      }).join('');
+      return '<div id="evoDrop" class="relative flex items-center">' + a +
+        '<button type="button" id="evoDropBtn" aria-haspopup="true" aria-expanded="false" aria-label="Evo pages" class="px-1.5 py-1.5 -ml-1 rounded-lg text-slate-400 hover:text-white">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path d="M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4z"/></svg></button>' +
+        '<div id="evoMenu" role="menu" style="display:none" class="absolute left-0 top-full pt-2 z-50 min-w-[14rem]">' +
+          '<div class="rounded-xl border border-white/10 bg-[#0b0f19] py-2 shadow-xl">' + items + '</div></div></div>';
     }).join('');
     host.innerHTML =
       '<nav class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between gap-4">' +
-        '<a href="' + BASE + 'index.html" class="flex items-center gap-2.5 font-semibold tracking-tight text-white">' +
+        '<a data-top href="' + BASE + '" class="flex items-center gap-2.5 font-semibold tracking-tight text-white">' +
           '<span class="w-7 h-7 rounded-lg" style="background:linear-gradient(135deg,#6BB8E0,#E31837)"></span>' +
           '<span class="hidden sm:inline">Vancouver Car Share Calculator</span><span class="sm:hidden">VCS Calculator</span>' +
         '</a>' +
         '<div class="flex items-center gap-1">' + links + '</div>' +
       '</nav>';
+
+    var drop = document.getElementById('evoDrop'), btn = document.getElementById('evoDropBtn'), menu = document.getElementById('evoMenu');
+    var open = false, timer = null, byHover = false;
+    var canHover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
+    function set(v) {
+      open = v; if (!v) byHover = false;
+      menu.style.display = v ? 'block' : 'none'; btn.setAttribute('aria-expanded', v ? 'true' : 'false');
+    }
+    if (canHover) {   // phones and tablets have no hover, so they only use the tap below
+      drop.addEventListener('mouseenter', function () { clearTimeout(timer); if (!open) { set(true); byHover = true; } });
+      drop.addEventListener('mouseleave', function () { timer = setTimeout(function () { set(false); }, 150); });
+    }
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (open && byHover) { byHover = false; return; }   // a click on the arrow while hover-opened keeps it open
+      set(!open);
+    });
+    document.addEventListener('click', function (e) { if (open && !drop.contains(e.target)) set(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && open) { set(false); btn.focus(); } });
+    drop.addEventListener('focusout', function (e) { if (open && !drop.contains(e.relatedTarget)) set(false); });
   }
 
   /* ------------------------------------------------------ referral bar */
