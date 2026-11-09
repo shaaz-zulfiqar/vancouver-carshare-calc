@@ -8,7 +8,7 @@ var SITE_CONFIG = {
   evo: {
     code: 'EVOPARTNER920',                    // <- your Evo promo code
     link: 'https://evo.ca/register',          // <- add your referral parameters here if you have them
-    offer: 'Free membership ($35 value) + 60 minutes of drive time',
+    offer: 'Free registration ($35 fee waived) + 60 minutes of drive time',
     note: "I'm a student and built this site on my own. Using my code helps both of us: you get the sign-up bonus, and I earn a small referral bonus. Thank you!"   // <- shown next to your code, so visitors know you earn a bonus
   },
   modo: {
@@ -208,6 +208,38 @@ var SITE_CONFIG = {
     });
   }
 
+  /* ------------------------------------------------------- evo guides */
+  var GUIDES = [
+    { path: 'evo/rates/', label: 'Evo rates', blurb: 'Per-minute, hourly, daily and multi-day prices, fees and tax.' },
+    { path: 'evo/airport/', label: 'Evo to YVR', blurb: 'The $5 drop-off fee, where to park, and what a trip costs.' },
+    { path: 'evo/victoria/', label: 'Evo Victoria', blurb: 'The Victoria and Langford Home Zone, and a trip calculator.' },
+    { path: 'evo/nanaimo/', label: 'Evo Nanaimo', blurb: 'Evo Return at the Hullo ferry terminal, round trips only.' }
+  ];
+
+  function renderGuides() {
+    var host = document.getElementById('evo-guides');
+    if (host) {
+      host.innerHTML =
+        '<div class="max-w-6xl mx-auto px-5"><div class="rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8">' +
+          '<h2 class="text-xl font-semibold mb-1">Evo guides</h2>' +
+          '<p class="text-sm text-slate-400 mb-5">Rates, airport trips and the other places Evo runs.</p>' +
+          '<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">' +
+          GUIDES.map(function (g) {
+            return '<a href="' + BASE + g.path + '" class="block rounded-xl border border-white/10 bg-black/30 p-4 hover:border-white/30 transition">' +
+              '<span class="block font-semibold text-sm mb-1">' + g.label + ' →</span>' +
+              '<span class="block text-xs text-slate-400">' + g.blurb + '</span></a>';
+          }).join('') +
+          '</div></div></div>';
+    }
+    document.querySelectorAll('footer').forEach(function (f) {
+      var nav = document.createElement('nav');
+      nav.setAttribute('aria-label', 'Site guides');
+      nav.className = 'mb-3 flex flex-wrap justify-center gap-x-4 gap-y-1 text-slate-400';
+      nav.innerHTML = GUIDES.map(function (g) { return '<a class="hover:text-white underline underline-offset-2" href="' + BASE + g.path + '">' + g.label + '</a>'; }).join('');
+      f.insertBefore(nav, f.firstChild);
+    });
+  }
+
   /* ------------------------------------------------------------ feedback */
   function renderFeedback() {
     var host = document.getElementById('feedback');
@@ -287,6 +319,7 @@ var SITE_CONFIG = {
 
   function init() {
     renderNav();
+    renderGuides();
     renderFeedback();
     renderReferralBar();
     wireCodesAndLinks();
