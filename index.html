@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/tailwind.css">
+<link rel="stylesheet" href="assets/tailwind.css?v=20261120">
 <style>
   body{ background:#0B0F19; }
   .hero-glow{ background:
@@ -105,7 +105,7 @@
 
     <div role="note" class="mb-5 rounded-xl px-4 py-3 text-sm flex gap-3 items-start" style="border:1px solid rgba(251,191,36,.45);background:rgba(251,191,36,.08);color:#fde68a"><span aria-hidden="true">↔</span><p><strong class="text-white">Going one way? Choose Evo.</strong> Modo is round-trip only: the car must be returned to the spot you picked it up from, so Modo is never an option for a one-way trip.</p></div>
 
-    <div class="overflow-x-auto">
+    <div class="hidden md:block overflow-x-auto">
       <table class="w-full text-sm min-w-[560px]">
         <thead>
           <tr class="text-left border-b border-line">
@@ -114,7 +114,7 @@
             <th class="py-3 pl-4 font-semibold text-modo-light">Modo</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-line">
+        <tbody id="needsRows" class="divide-y divide-line">
           <tr><td class="py-3 pr-4 text-slate-300">One-way trip, leave the car behind</td><td class="py-3 px-4">✅ End the trip at an approved Evo parking spot in the Home Zone</td><td class="py-3 pl-4 text-slate-500">Round-trip only</td></tr>
           <tr><td class="py-3 pr-4 text-slate-300">Airport drop-off or pickup (YVR)</td><td class="py-3 px-4">✅ YVR is an approved Evo end point ($5 drop-off fee, waived for BCAA members)</td><td class="py-3 pl-4 text-slate-500">Round-trip only: the car has to come back</td></tr>
           <tr><td class="py-3 pr-4 text-slate-300">Spur-of-the-moment trip</td><td class="py-3 px-4">✅ Find one nearby and go, billed per minute</td><td class="py-3 pl-4 text-slate-500">30-minute minimum booking, returned to the same spot</td></tr>
@@ -129,7 +129,8 @@
         </tbody>
       </table>
     </div>
-    <p class="text-xs text-slate-600 mt-4">A guide, not advice. Run your actual trip through <a href="compare/" class="underline underline-offset-2 text-slate-400">the comparison tool</a>.</p>
+    <ul id="needsCards" class="md:hidden divide-y divide-line border-y border-line" role="list"></ul>
+    <p class="text-xs text-slate-400 mt-4">A guide, not advice. Run your actual trip through <a href="compare/" class="underline underline-offset-2 text-slate-400">the comparison tool</a>.</p>
   </section>
 
   <!-- Cost: standing time vs distance -->
@@ -153,12 +154,12 @@
       <div class="inline-flex items-center gap-2 text-xs text-slate-400">
         <span>Modo plan:</span>
         <div class="inline-flex bg-black/40 border border-line rounded-lg p-1" role="group" aria-label="Modo plan for examples">
-          <button type="button" id="exPlus" class="px-3 py-1 rounded-md font-semibold transition">Plus</button>
-          <button type="button" id="exMonthly" class="px-3 py-1 rounded-md font-semibold transition">Monthly</button>
+          <button type="button" id="exPlus" class="min-h-[44px] px-4 rounded-md font-semibold transition">Plus</button>
+          <button type="button" id="exMonthly" class="min-h-[44px] px-4 rounded-md font-semibold transition">Monthly</button>
         </div>
       </div>
     </div>
-    <div class="overflow-x-auto">
+    <div class="hidden md:block overflow-x-auto">
       <table class="w-full text-sm min-w-[640px]">
         <thead>
           <tr class="text-left border-b border-line text-slate-500">
@@ -173,11 +174,12 @@
         <tbody id="exampleRows" class="divide-y divide-line"></tbody>
       </table>
     </div>
+    <ul id="exampleCards" class="md:hidden divide-y divide-line border-y border-line" role="list"></ul>
     <div class="flex flex-wrap items-center justify-between gap-3 mt-4">
-      <button type="button" id="exMore" class="text-sm font-semibold text-slate-300 hover:text-white underline underline-offset-4"></button>
-      <a href="compare/" class="text-sm font-semibold text-white hover:underline underline-offset-4">Compare your own trip →</a>
+      <button type="button" id="exMore" class="w-full sm:w-auto min-h-[44px] px-5 rounded-xl border border-line text-sm font-semibold text-slate-200 hover:text-white hover:border-slate-500 transition"></button>
+      <a href="compare/" class="inline-flex items-center min-h-[44px] text-sm font-semibold text-white hover:underline underline-offset-4">Compare your own trip →</a>
     </div>
-    <p class="text-xs text-slate-600 mt-4">Totals include fees and 12% tax. Assumes a Modo Daily Drive gas vehicle and no BCAA discount. Evo has no kilometre cap.</p>
+    <p class="text-xs text-slate-400 mt-4">Totals include fees and 12% tax. Assumes a Modo Daily Drive gas vehicle and no BCAA discount. Modo prices marked Day Tripper use its whole-day rate ($100 a day, 500 km included on Plus or 250 on Monthly). Evo has no kilometre cap.</p>
   </section>
 
   <!-- Verified offers -->
@@ -211,13 +213,13 @@
 
 <div id="feedback" class="mb-12"></div>
 
-<footer class="max-w-6xl mx-auto px-5 pb-12 text-center text-xs text-slate-600 leading-relaxed">
+<footer class="max-w-6xl mx-auto px-5 pb-12 text-center text-xs text-slate-400 leading-relaxed">
   Independent estimate tool for planning purposes only. Not sponsored or endorsed by Evo Car Share or Modo Co-operative. I'm a student and earn a small referral bonus when you sign up with my Evo code.
   Rates last reviewed <span data-reviewed>November 2026</span>. © <span id="year"></span> vancouvercarsharecalculator.com
 </footer>
 
-<script src="assets/pricing.js"></script>
-<script src="assets/site.js"></script>
+<script src="assets/pricing.js?v=20261120"></script>
+<script src="assets/site.js?v=20261120"></script>
 <script>
 (function () {
   var P = window.Pricing, plan = 'plus', showAll = false;
@@ -227,11 +229,13 @@
 
   function paint() {
     [['exPlus', 'plus'], ['exMonthly', 'monthly']].forEach(function (p) {
-      document.getElementById(p[0]).className = 'px-3 py-1 rounded-md font-semibold transition ' + (plan === p[1] ? 'bg-modo text-white' : 'text-slate-400 hover:text-white');
+      document.getElementById(p[0]).setAttribute('aria-pressed', plan === p[1] ? 'true' : 'false');
+      document.getElementById(p[0]).className = 'min-h-[44px] px-4 rounded-md font-semibold transition ' + (plan === p[1] ? 'bg-modo text-white' : 'text-slate-400 hover:text-white');
     });
     document.getElementById('exampleRows').innerHTML = P.SCENARIOS.map(function (s) {
       var e = P.evoQuote(s.hours * 60).total;
-      var m = s.oneWay ? null : P.modoQuote({ hours: s.hours, km: s.km, plan: plan, vehicle: 'daily', ev: false }).total;
+      var mq = s.oneWay ? null : P.modoQuote({ hours: s.hours, km: s.km, plan: plan, vehicle: 'daily', ev: false });
+      var m = mq ? mq.total : null, dt = !!mq && mq.mode === 'dayTripper';
       var diff = m === null ? 0 : P.round2(Math.abs(e - m));
       var win = m === null ? '<span class="text-evo font-semibold">Evo</span> <span class="text-slate-500">(only option)</span>'
               : e < m ? '<span class="text-evo font-semibold">Evo</span> <span class="text-slate-500">by ' + money(diff) + '</span>'
@@ -243,11 +247,52 @@
         '<td class="py-3 px-3 text-right font-mono text-slate-300">' + hoursLabel(s.hours) + '</td>' +
         '<td class="py-3 px-3 text-right font-mono text-slate-300">' + s.km + '</td>' +
         '<td class="py-3 px-3 text-right font-mono">' + money(e) + '</td>' +
-        '<td class="py-3 px-3 text-right font-mono' + (m === null ? ' text-slate-500' : '') + '">' + (m === null ? 'Not possible' : money(m)) + '</td>' +
+        '<td class="py-3 px-3 text-right font-mono' + (m === null ? ' text-slate-500' : '') + '">' + (m === null ? 'Not possible' : money(m)) +
+          (dt ? '<span class="block text-xs font-body text-slate-400">Day Tripper</span>' : '') + '</td>' +
         '<td class="py-3 pl-4">' + win + '</td></tr>';
+    }).join('');
+    document.getElementById('exampleCards').innerHTML = P.SCENARIOS.map(function (s) {
+      var e = P.evoQuote(s.hours * 60).total;
+      var mq = s.oneWay ? null : P.modoQuote({ hours: s.hours, km: s.km, plan: plan, vehicle: 'daily', ev: false });
+      var m = mq ? mq.total : null, dt = !!mq && mq.mode === 'dayTripper';
+      var diff = m === null ? 0 : P.round2(Math.abs(e - m));
+      var evoWins = m === null || e < m;
+      var extra = FEATURED.indexOf(s.id) === -1;
+      var chip = function (name, cls, amount, on, sub) {
+        return '<div class="rounded-lg px-3 py-2 ' + (on ? 'bg-white/[0.06] ring-1 ring-inset ring-current ' + cls : 'text-slate-400') + '">' +
+          '<p class="text-xs font-semibold ' + cls + '">' + name + (on ? ' · cheaper' : '') + '</p>' +
+          '<p class="font-mono text-base ' + (on ? 'text-white' : 'text-slate-300') + '">' + amount + '</p>' +
+          (sub ? '<p class="text-xs text-slate-400">' + sub + '</p>' : '') + '</div>';
+      };
+      var when = (s.hours >= 24 ? hoursLabel(s.hours) : s.hours + ' h') + ' · ' + s.km + ' km';
+      return '<li class="py-4"' + (extra && !showAll ? ' hidden' : '') + '>' +
+        '<div class="flex items-baseline justify-between gap-3">' +
+          (s.oneWay ? '<span class="font-medium text-slate-200">' + s.label + '</span>' : '<a href="compare/?h=' + s.hours + '&km=' + s.km + '" class="font-medium text-slate-200 underline underline-offset-2 decoration-slate-600">' + s.label + '</a>') +
+          '<span class="text-xs font-mono text-slate-400 whitespace-nowrap">' + when + '</span></div>' +
+        '<p class="text-xs text-slate-400 mt-0.5 mb-3">' + s.kind + '</p>' +
+        '<div class="grid grid-cols-2 gap-2">' +
+          chip('Evo', 'text-evo', money(e), evoWins) +
+          chip('Modo', 'text-modo-light', m === null ? 'Not possible' : money(m), !evoWins, dt ? 'Day Tripper rate' : '') +
+        '</div>' +
+        '<p class="text-sm text-slate-300 mt-2">' + (m === null ? 'One way, so only Evo can do it.' : (evoWins ? 'Evo' : 'Modo') + ' saves ' + money(diff)) + '</p>' +
+      '</li>';
     }).join('');
     document.getElementById('exMore').textContent = showAll ? 'Show fewer trips' : 'Show all ' + P.SCENARIOS.length + ' trips';
   }
+
+  // Phone layout of "Which service fits your trip?": one stacked row per need, built from the desktop table.
+  document.getElementById('needsCards').innerHTML = [].map.call(document.querySelectorAll('#needsRows tr'), function (tr) {
+    var c = tr.cells;
+    var side = function (name, cls, td) {
+      var text = td.textContent.trim(), win = text.indexOf('✅') === 0;
+      if (win) text = text.slice(1).trim();
+      return '<div class="rounded-lg px-3 py-2 ' + (win ? 'bg-white/[0.06] ring-1 ring-inset ring-current ' + cls : '') + '">' +
+        '<p class="text-xs font-semibold ' + cls + '">' + name + (win ? ' · better fit' : '') + '</p>' +
+        '<p class="text-sm ' + (win ? 'text-slate-100' : 'text-slate-400') + '">' + text + '</p></div>';
+    };
+    return '<li class="py-4"><p class="font-medium text-slate-200 mb-2">' + c[0].textContent.trim() + '</p>' +
+      '<div class="grid grid-cols-2 gap-2">' + side('Evo', 'text-evo', c[1]) + side('Modo', 'text-modo-light', c[2]) + '</div></li>';
+  }).join('');
 
   document.getElementById('exMore').addEventListener('click', function () { showAll = !showAll; paint(); });
   document.getElementById('exPlus').addEventListener('click', function () { plan = 'plus'; paint(); });

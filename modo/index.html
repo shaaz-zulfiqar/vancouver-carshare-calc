@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modo Rate Calculator 2026 — Hourly, km, Day Tripper &amp; Tax</title>
+<title>Modo Rate Calculator (2026) | Hourly, km, Day Tripper &amp; Tax</title>
 <meta name="description" content="Estimate your Modo trip cost in Vancouver: Plus vs Monthly rates, per-km charges, automatic Day Tripper pricing, innovation fee, 12% tax and PVRT.">
 <link rel="canonical" href="https://vancouvercarsharecalculator.com/modo/">
 <link rel="icon" href="../favicon.ico" sizes="any">
@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Vancouver Car Share Calculator">
-<meta property="og:title" content="Modo Rate Calculator 2026 — Hourly, km, Day Tripper &amp; Tax">
+<meta property="og:title" content="Modo Rate Calculator (2026) | Hourly, km, Day Tripper &amp; Tax">
 <meta property="og:description" content="Estimate your Modo trip cost in Vancouver: Plus vs Monthly rates, per-km charges, automatic Day Tripper pricing, innovation fee, 12% tax and PVRT.">
 <meta property="og:url" content="https://vancouvercarsharecalculator.com/modo/">
 <meta property="og:image" content="https://vancouvercarsharecalculator.com/assets/og-image.jpg">
@@ -20,12 +20,12 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://vancouvercarsharecalculator.com/assets/og-image.jpg">
-<meta name="twitter:title" content="Modo Rate Calculator 2026 — Hourly, km, Day Tripper &amp; Tax">
+<meta name="twitter:title" content="Modo Rate Calculator (2026) | Hourly, km, Day Tripper &amp; Tax">
 <meta name="twitter:description" content="Estimate your Modo trip cost in Vancouver: Plus vs Monthly rates, per-km charges, automatic Day Tripper pricing, innovation fee, 12% tax and PVRT.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/tailwind.css">
+<link rel="stylesheet" href="../assets/tailwind.css?v=20261120">
 <style>
   body{ background:#0B0F19; }
   input[type=range]{ -webkit-appearance:none; height:6px; border-radius:999px; background:#222b3d; }
@@ -116,7 +116,7 @@
           <span><span class="block text-sm font-medium">Electric vehicle</span><span class="block text-xs text-slate-500">$1 innovation fee instead of $3</span></span>
           <span class="relative inline-block w-11 h-6 shrink-0">
             <input id="evToggle" type="checkbox" class="peer sr-only">
-            <span class="absolute inset-0 rounded-full bg-slate-700 peer-checked:bg-modo transition"></span>
+            <span class="absolute inset-0 rounded-full bg-slate-700 peer-checked:bg-modo peer-focus-visible:ring-2 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-black peer-focus-visible:ring-modo-light peer-focus-visible:ring-offset-slate-950 transition"></span>
             <span class="absolute left-1 top-1 w-4 h-4 rounded-full bg-slate-200 peer-checked:translate-x-5 transition-transform"></span>
           </span>
         </label>
@@ -181,12 +181,12 @@
 
       <div class="flex justify-between items-center mt-4 pt-4 border-t border-line">
         <span class="font-display font-semibold text-lg">Net Total</span>
-        <span id="rTotal" class="font-mono text-4xl font-bold bg-gradient-to-r from-modo-light to-modo bg-clip-text text-transparent">$0.00</span>
+        <span id="rTotal" aria-live="polite" class="font-mono text-4xl font-bold bg-gradient-to-r from-modo-light to-modo bg-clip-text text-transparent">$0.00</span>
       </div>
 
       <div id="savedBox" class="hidden mt-4 rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200"></div>
       <p id="modoNote" class="text-xs text-slate-500 mt-4 min-h-[1rem]"></p>
-      <p class="text-[11px] text-slate-600 mt-2">Tax is 12% of time + distance + innovation fee. Overnight (9pm–7am) 3-hour cap and gas fuel surcharges are not modelled.</p>
+      <p class="text-xs text-slate-400 mt-2">Tax is 12% of time + distance + innovation fee. Overnight (9pm–7am) 3-hour cap and gas fuel surcharges are not modelled.</p>
     </div>
   </section>
 
@@ -228,13 +228,13 @@
 
 <div id="feedback" class="mb-12"></div>
 
-<footer class="max-w-6xl mx-auto px-5 pb-12 text-center text-xs text-slate-600 leading-relaxed">
+<footer class="max-w-6xl mx-auto px-5 pb-12 text-center text-xs text-slate-400 leading-relaxed">
   Independent estimate tool for planning purposes only. Not sponsored or endorsed by Modo Co-operative or Evo Car Share. I'm a student and earn a small referral bonus when you sign up with my Evo code.
   Rates last reviewed <span data-reviewed>November 2026</span>; verify current pricing on modo.coop. © <span id="year"></span> vancouvercarsharecalculator.com
 </footer>
 
-<script src="../assets/pricing.js"></script>
-<script src="../assets/site.js"></script>
+<script src="../assets/pricing.js?v=20261120"></script>
+<script src="../assets/site.js?v=20261120"></script>
 <script>
 (function () {
   var P = window.Pricing;
@@ -247,11 +247,13 @@
     document.querySelectorAll('#planGroup .seg').forEach(function (b) { setSeg(b, b.getAttribute('data-plan') === state.plan); });
     document.querySelectorAll('#vehicleGroup .seg').forEach(function (b) { setSeg(b, b.getAttribute('data-vehicle') === state.vehicle); });
     [['uHours', 'hr'], ['uDays', 'day']].forEach(function (p) {
-      $(p[0]).className = 'px-3 py-1 rounded-md text-xs font-semibold font-display transition ' + (state.unit === p[1] ? 'bg-modo text-white' : 'text-slate-400 hover:text-white');
+      $(p[0]).className = 'min-h-[44px] px-3 rounded-md text-xs font-semibold font-display transition ' + (state.unit === p[1] ? 'bg-modo text-white' : 'text-slate-400 hover:text-white');
+      $(p[0]).setAttribute('aria-pressed', state.unit === p[1] ? 'true' : 'false');
     });
     $('durUnit').textContent = state.unit;
   }
   function setSeg(b, on) {
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
     b.className = 'seg rounded-xl border px-4 py-3 text-left transition ' +
       (on ? 'border-modo bg-modo/15 text-white' : 'border-line bg-slate-950 text-slate-300 hover:border-modo/50');
   }

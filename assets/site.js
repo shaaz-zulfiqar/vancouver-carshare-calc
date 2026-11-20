@@ -84,14 +84,14 @@ var SITE_CONFIG = {
     { path: 'evo/airport/', label: 'Evo to YVR airport' },
     { path: 'evo/victoria/', label: 'Evo Victoria' },
     { path: 'evo/nanaimo/', label: 'Evo Nanaimo' }
-  ];
+  ];   // the promo code page is the highlighted first line of the menu (offerLine in renderNav)
 
   function renderNav() {
     var host = document.getElementById('site-nav');
     if (!host) return;
     var active = document.body.getAttribute('data-page') || '';
     var linkCls = function (on) {
-      return 'flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 rounded-lg text-sm font-medium transition ' +
+      return 'flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 min-h-[44px] rounded-lg text-sm font-medium transition ' +
         (on ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5');
     };
     var links = NAV.map(function (n) {
@@ -106,18 +106,18 @@ var SITE_CONFIG = {
         return '<a role="menuitem" href="' + BASE + m.path + '" class="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/5">' + m.label + '</a>';
       }).join('');
       return '<div id="evoDrop" class="relative flex items-center">' + a +
-        '<button type="button" id="evoDropBtn" aria-haspopup="true" aria-expanded="false" aria-label="Evo pages" class="px-1.5 py-1.5 -ml-1 rounded-lg text-slate-400 hover:text-white">' +
+        '<button type="button" id="evoDropBtn" aria-haspopup="true" aria-expanded="false" aria-label="Evo pages" class="inline-flex items-center justify-center min-w-[44px] min-h-[44px] -ml-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5">' +
           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path d="M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4z"/></svg></button>' +
         '<div id="evoMenu" role="menu" style="display:none" class="absolute left-0 top-full pt-2 z-50 min-w-[14rem]">' +
           '<div class="rounded-xl border border-white/10 bg-[#0b0f19] py-2 shadow-xl">' + offerLine + items + '</div></div></div>';
     }).join('');
     host.innerHTML =
-      '<nav class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between gap-4">' +
+      '<nav class="max-w-6xl mx-auto px-4 min-[360px]:px-5 py-3 sm:py-4 flex items-center justify-between gap-2 sm:gap-4">' +
         '<a data-top href="' + BASE + '" aria-label="Vancouver Car Share Calculator home" class="flex items-center gap-2.5 font-semibold tracking-tight text-white shrink-0">' +
           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-7 h-7 shrink-0" aria-hidden="true"><rect width="512" height="512" rx="112" fill="#1d1d20"/><polygon fill="#14D5F5" points="37,62 146.6,62 256,323.2 202.5,450.8"/><polygon fill="#C8102E" points="366.3,62 474.9,62 312.9,450.8 202.5,450.8"/><line x1="421.5" y1="76" x2="257.7" y2="439" stroke="#fff" stroke-width="22" stroke-linecap="round" stroke-dasharray="30 42"/></svg>' +
           '<span class="hidden md:inline">Vancouver Car Share Calculator</span><span class="hidden min-[430px]:inline md:hidden">VCS Calculator</span>' +
         '</a>' +
-        '<div class="flex items-center gap-1">' + links + '</div>' +
+        '<div class="flex items-center gap-0.5 sm:gap-1">' + links + '</div>' +
       '</nav>';
 
     var drop = document.getElementById('evoDrop'), btn = document.getElementById('evoDropBtn'), menu = document.getElementById('evoMenu');
@@ -259,24 +259,50 @@ var SITE_CONFIG = {
     if (!hasCode('evo') || document.getElementById('codeReminder')) return;
     var bar = document.createElement('div');
     bar.id = 'codeReminder'; bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'Your Evo promo code');
-    bar.className = 'fixed inset-x-0 bottom-0 z-40 px-3 pb-3 pt-2';
+    bar.className = 'fixed inset-x-0 bottom-0 z-40 px-2 sm:px-3';
+    bar.style.paddingBottom = 'max(0.5rem, env(safe-area-inset-bottom))';
+    // Phones get one ~48px row; the "where to paste" hint shows from sm up, or on phones when there is a message.
     bar.innerHTML =
-      '<div class="max-w-xl mx-auto rounded-2xl border border-[#6BB8E0]/40 shadow-2xl px-3 py-2.5" style="background:#0c161d">' +
-        '<p id="codeReminderNote" class="text-[11px] text-slate-400 leading-tight mb-1.5">Paste in “Promo Code” on the “Promos &amp; Savings” page</p>' +
-        '<div class="flex items-center gap-2">' +
-          '<code class="font-mono text-base text-[#A8DAF3] tracking-wide mr-auto" style="user-select:all;-webkit-user-select:all" data-code-text="evo"></code>' +
-          '<button type="button" data-copy-code="evo" data-placement="reminder" data-copied-label="Copied" class="text-sm font-semibold px-3 py-2 rounded-xl border border-white/20 hover:bg-white/5 whitespace-nowrap">Copy</button>' +
-          '<a data-link="evo" data-placement="reminder" target="_blank" rel="noopener" class="text-sm font-semibold px-3 py-2 rounded-xl text-black whitespace-nowrap" style="background:linear-gradient(90deg,#3C9ACF,#A8DAF3)">Sign up</a>' +
-          '<button type="button" id="codeReminderClose" aria-label="Dismiss" class="text-slate-400 hover:text-white px-2 py-1 text-xl leading-none">×</button>' +
+      '<div class="max-w-xl mx-auto rounded-2xl border border-[#6BB8E0]/40 shadow-2xl px-2 py-0.5 sm:px-3 sm:py-2" style="background:#0c161d">' +
+        '<p id="codeReminderNote" class="hidden sm:block text-[11px] text-slate-400 leading-tight px-1 pt-1.5 sm:pt-0 sm:mb-1">Paste in “Promo Code” on the “Promos &amp; Savings” page</p>' +
+        '<div class="flex items-center gap-1.5 sm:gap-2">' +
+          '<code class="font-mono text-sm sm:text-base text-[#A8DAF3] tracking-wide mr-auto pl-1 truncate" style="user-select:all;-webkit-user-select:all" data-code-text="evo"></code>' +
+          '<button type="button" data-copy-code="evo" data-placement="reminder" data-copied-label="Copied" class="min-h-[44px] text-sm font-semibold px-3 rounded-xl border border-white/20 hover:bg-white/5 whitespace-nowrap">Copy</button>' +
+          '<a data-link="evo" data-placement="reminder" target="_blank" rel="noopener" class="inline-flex items-center min-h-[44px] text-sm font-semibold px-3 rounded-xl text-black whitespace-nowrap" style="background:linear-gradient(90deg,#3C9ACF,#A8DAF3)">Sign up</a>' +
+          '<button type="button" id="codeReminderClose" aria-label="Dismiss" class="inline-flex items-center justify-center min-w-[44px] min-h-[44px] -mr-1 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 text-xl leading-none">×</button>' +
         '</div>' +
       '</div>';
     document.body.appendChild(bar);
-    document.body.style.paddingBottom = '6rem';
+    reminderPad();
+    window.addEventListener('resize', reminderPad);
     document.getElementById('codeReminderClose').addEventListener('click', function () {
       reminderSet(false); bar.remove(); document.body.style.paddingBottom = '';
+      window.removeEventListener('resize', reminderPad);
     });
     wireCodesAndLinks(bar);
   }
+  /* Keeps the end of the page clear of the bar, whatever height it has right now. */
+  function reminderPad() {
+    var bar = document.getElementById('codeReminder');
+    if (bar && !bar.hidden) document.body.style.paddingBottom = (bar.offsetHeight + 8) + 'px';
+  }
+  /* While someone is typing, the bar would sit on top of the on-screen keyboard, so it steps aside. */
+  function typingField(el) {
+    if (!el || !el.tagName) return false;
+    var t = el.tagName;
+    if (t === 'TEXTAREA' || t === 'SELECT' || el.isContentEditable) return true;
+    return t === 'INPUT' && !/^(checkbox|radio|range|button|submit|reset|file|color|image|hidden)$/i.test(el.type);
+  }
+  document.addEventListener('focusin', function (e) {
+    var bar = document.getElementById('codeReminder');
+    if (bar && typingField(e.target)) bar.hidden = true;
+  });
+  document.addEventListener('focusout', function () {
+    setTimeout(function () {
+      var bar = document.getElementById('codeReminder');
+      if (bar && bar.hidden && !typingField(document.activeElement)) { bar.hidden = false; reminderPad(); }
+    }, 0);
+  });
   var REMINDER_DEFAULT = 'Paste in “Promo Code” on the “Promos & Savings” page';
   /* Shows a message in the pinned bar. Used when a copy fails or the browser blocks the sign-up tab. */
   function reminderNote(msg) {
@@ -285,6 +311,8 @@ var SITE_CONFIG = {
     n.textContent = msg || REMINDER_DEFAULT;
     n.style.color = msg ? '#fde68a' : ''; n.style.fontWeight = msg ? '600' : '';
     n.style.fontSize = msg ? '12px' : '';
+    n.classList.toggle('hidden', !msg);   // phones only show the line when there is something to say
+    reminderPad();
   }
   function restoreReminder() { if (reminderOn()) showReminder(); }
 
@@ -366,12 +394,17 @@ var SITE_CONFIG = {
   function renderGuides() {
     var host = document.getElementById('evo-guides');
     if (host) {
+      // A guide page doesn't list itself.
+      var here = location.pathname.replace(/index\.html$/, '');
+      var others = GUIDES.filter(function (g) {
+        return new URL(BASE + g.path, location.href).pathname.replace(/index\.html$/, '') !== here;
+      });
       host.innerHTML =
         '<div class="max-w-6xl mx-auto px-5"><div class="rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8">' +
-          '<h2 class="text-xl font-semibold mb-1">Evo guides</h2>' +
+          '<h2 class="text-xl font-semibold mb-1">' + (others.length < GUIDES.length ? 'More Evo guides' : 'Evo guides') + '</h2>' +
           '<p class="text-sm text-slate-400 mb-5">Rates, airport trips and the other places Evo runs.</p>' +
-          '<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">' +
-          GUIDES.map(function (g) {
+          '<div class="grid sm:grid-cols-2 ' + (others.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4') + ' gap-3">' +
+          others.map(function (g) {
             return '<a href="' + BASE + g.path + '" class="block rounded-xl border border-white/10 bg-black/30 p-4 hover:border-white/30 transition">' +
               '<span class="block font-semibold text-sm mb-1">' + g.label + ' →</span>' +
               '<span class="block text-xs text-slate-400">' + g.blurb + '</span></a>';

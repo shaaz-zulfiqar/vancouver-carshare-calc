@@ -25,7 +25,8 @@
   function paintUnits() {
     ['min', 'hr', 'day'].forEach(function (u) {
       var b = $('gcUnit-' + u);
-      b.className = 'px-4 py-1.5 rounded-md text-sm font-semibold font-display transition ' + (unit === u ? 'bg-evo text-black' : 'text-slate-400 hover:text-white');
+      b.setAttribute('aria-pressed', unit === u ? 'true' : 'false');
+      b.className = 'min-h-[44px] px-4 rounded-md text-sm font-semibold font-display transition ' + (unit === u ? 'bg-evo text-black' : 'text-slate-400 hover:text-white');
     });
   }
 
@@ -50,6 +51,8 @@
       $('gcExtra').textContent = fmt(extra);
     }
     $('gcTotal').textContent = fmt(q.total + extra);
+    var top = $('gcTotalTop');   // copy of the total right under the input, so it stays visible above a phone keyboard
+    if (top) top.textContent = fmt(q.total + extra);
 
     var notes = [];
     if (minMinutes && m < minMinutes) notes.push('Evo Return bookings start at 1 hour, so this is priced as 1 hour.');
@@ -67,7 +70,7 @@
   }
 
   $('gcPresets').innerHTML = presets.map(function (p) {
-    return '<button type="button" data-m="' + p[0] + '" class="text-xs px-3 py-1.5 rounded-full border border-line text-slate-300 hover:border-evo hover:text-evo transition">' + p[1] + '</button>';
+    return '<button type="button" data-m="' + p[0] + '" class="min-h-[44px] min-w-0 px-0 rounded-lg border border-line text-xs sm:text-sm leading-tight text-slate-300 hover:border-evo hover:text-evo transition">' + p[1] + '</button>';
   }).join('');
   $('gcPresets').querySelectorAll('button').forEach(function (b) {
     b.addEventListener('click', function () {

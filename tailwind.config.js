@@ -7,7 +7,9 @@ module.exports = {
     colors: {
       evo: { DEFAULT: '#6BB8E0', light: '#A8DAF3', deep: '#3C9ACF' },
       modo: { DEFAULT: '#E31837', light: '#FF5A70', deep: '#B30F29' },
-      slate: { 950: '#0B0F19' },
+      // 500 is lifted from Tailwind's #64748b so muted text passes WCAG AA (4.5:1) on every dark panel the site uses
+      // (lowest is 4.87:1 on the Modo card gradient), while staying a step darker than slate-400.
+      slate: { 500: '#7C8AA0', 950: '#0B0F19' },
       // panel colours differ between the Evo pages and the hub/Modo/Compare pages: each page sets the --panel variables
       panel: 'rgb(var(--panel) / <alpha-value>)',
       panel2: 'rgb(var(--panel2) / <alpha-value>)',
