@@ -54,6 +54,8 @@
     var top = $('gcTotalTop');   // copy of the total right under the input, so it stays visible above a phone keyboard
     if (top) top.textContent = fmt(q.total + extra);
     if (window.renderFreeMinutes) window.renderFreeMinutes($('gcFreeMinutes'), billed, bcaa.checked);
+    var cmp = $('gcCompare');   // optional "Compare with Modo for this trip" link; carries the trip length in hours
+    if (cmp) cmp.href = cmp.getAttribute('data-base') + '?h=' + +(billed / 60).toFixed(2);
 
     var notes = [];
     if (minMinutes && m < minMinutes) notes.push('Evo Return bookings start at 1 hour, so this is priced as 1 hour.');
