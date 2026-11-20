@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/tailwind.css?v=20261120">
+<link rel="stylesheet" href="../assets/tailwind.css?v=20261120b">
 <style>
   body{ background:#0B0F19; }
   input[type=range]{ -webkit-appearance:none; height:6px; border-radius:999px; background:#222b3d; }
@@ -139,6 +139,10 @@
           <span class="font-display font-semibold">Total</span>
           <span id="eTotal" aria-live="polite" class="font-mono text-4xl font-bold text-evo">$0.00</span>
         </div>
+        <div id="fmEvo" data-requires-code="evo" data-free-minutes class="mt-4 rounded-xl bg-evo/10 px-4 py-3 flex flex-col items-start gap-2">
+          <p data-fm-text class="text-sm text-slate-200"></p>
+          <button type="button" data-copy-code="evo" data-placement="receipt" data-copied-label="Copied" aria-label="Copy code for the Evo offer" class="min-h-[44px] px-4 rounded-lg border border-evo/50 text-evo-light text-sm font-semibold hover:bg-evo/10 transition">Copy code</button>
+        </div>
         <p id="eNote" class="text-xs text-slate-500 mt-3 min-h-[1rem]"></p>
         <a href="../evo/" class="inline-block mt-3 text-sm text-evo underline underline-offset-2" data-track="compare_to_evo">Open the full Evo calculator →</a>
       </div>
@@ -167,6 +171,56 @@
     </article>
   </section>
 
+  <!-- Decision matrix + worked examples (figures recomputed from assets/pricing.js below) -->
+  <section class="rounded-2xl border border-line bg-panel p-6 md:p-8 mb-8" aria-labelledby="whichHeading">
+    <h2 id="whichHeading" class="font-display font-semibold text-2xl mb-1">Evo vs Modo: which is better for your trip?</h2>
+    <p class="text-sm text-slate-400 mb-5 max-w-3xl">What the trip needs often decides it before the price does.</p>
+    <div class="hidden md:grid grid-cols-[1.3fr_0.5fr_2fr] gap-6 pb-2 border-b border-line text-xs font-medium text-slate-400"><span>Your trip</span><span>Better pick</span><span>Why</span></div>
+    <ul class="divide-y divide-line mb-8" role="list">
+        <li class="grid grid-cols-1 md:grid-cols-[1.3fr_0.5fr_2fr] gap-1 md:gap-6 py-3.5"><span class="font-medium text-slate-200">One-way trip, leave the car behind</span><span class="font-semibold text-evo">Evo</span><span class="text-sm text-slate-400">Modo cars must go back to the spot you took them from.</span></li>
+        <li class="grid grid-cols-1 md:grid-cols-[1.3fr_0.5fr_2fr] gap-1 md:gap-6 py-3.5"><span class="font-medium text-slate-200">Short round-trip errand</span><span class="font-semibold text-modo-light">Modo</span><span class="text-sm text-slate-400">$5–6 an hour plus 35¢/km beats Evo’s 49¢ a minute.</span></li>
+        <li class="grid grid-cols-1 md:grid-cols-[1.3fr_0.5fr_2fr] gap-1 md:gap-6 py-3.5"><span class="font-medium text-slate-200">Parked for hours (hike, appointment)</span><span class="font-semibold text-modo-light">Modo</span><span class="text-sm text-slate-400">Modo charges $5–6 an hour while parked; Evo’s meter runs up to $17.99 an hour.</span></li>
+        <li class="grid grid-cols-1 md:grid-cols-[1.3fr_0.5fr_2fr] gap-1 md:gap-6 py-3.5"><span class="font-medium text-slate-200">Long drive, lots of kilometres</span><span class="font-semibold text-evo">Evo</span><span class="text-sm text-slate-400">Gas and unlimited km are included; Modo adds 35¢ for every km.</span></li>
+        <li class="grid grid-cols-1 md:grid-cols-[1.3fr_0.5fr_2fr] gap-1 md:gap-6 py-3.5"><span class="font-medium text-slate-200">Trip of 3 days or more</span><span class="font-semibold text-evo">Evo</span><span class="text-sm text-slate-400">Evo’s 3-day ($264.99) and 5-day ($424.99) rates undercut Modo.</span></li>
+        <li class="grid grid-cols-1 md:grid-cols-[1.3fr_0.5fr_2fr] gap-1 md:gap-6 py-3.5"><span class="font-medium text-slate-200">Moving or hauling cargo</span><span class="font-semibold text-modo-light">Modo</span><span class="text-sm text-slate-400">Large &amp; Loadable vehicles and vans you can reserve ahead.</span></li>
+    </ul>
+
+    <h2 class="font-display font-semibold text-xl mb-1">Three trips, priced</h2>
+    <p class="text-sm text-slate-400 mb-4">Totals include fees and 12% tax, on a Modo Plus Daily Drive gas car with no BCAA discount.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-line border-t border-line md:border-t-0">
+      <div class="py-5 md:py-0 md:px-6 first:md:pl-0 last:md:pr-0" data-scenario data-h="0.5" data-km="8">
+        <h3 class="font-display font-semibold text-lg">Quick 30-minute errand</h3>
+        <p class="text-xs text-slate-400 mb-3">30 min · 8 km round trip</p>
+        <dl class="grid grid-cols-2 gap-3 mb-3">
+          <div><dt class="text-xs font-semibold text-evo">Evo</dt><dd><span class="font-mono text-base text-white" data-sc-evo>$18.54</span></dd></div>
+          <div><dt class="text-xs font-semibold text-modo-light">Modo Plus</dt><dd><span class="font-mono text-base text-white" data-sc-modo>$9.30</span></dd></div>
+        </dl>
+        <p class="text-sm text-slate-300 mb-2" data-sc-verdict>Modo is cheaper by <span data-sc-diff>$9.24</span>, but only Evo can do it one way.</p>
+        <a href="?h=0.5&km=8" class="inline-flex items-center min-h-[44px] text-sm font-semibold text-white underline underline-offset-4">Run this trip →</a>
+      </div>
+      <div class="py-5 md:py-0 md:px-6 first:md:pl-0 last:md:pr-0" data-scenario data-h="6" data-km="65">
+        <h3 class="font-display font-semibold text-lg">6-hour North Shore hike</h3>
+        <p class="text-xs text-slate-400 mb-3">6 h · 65 km round trip</p>
+        <dl class="grid grid-cols-2 gap-3 mb-3">
+          <div><dt class="text-xs font-semibold text-evo">Evo</dt><dd><span class="font-mono text-base text-white" data-sc-evo>$119.66</span></dd></div>
+          <div><dt class="text-xs font-semibold text-modo-light">Modo Plus</dt><dd><span class="font-mono text-base text-white" data-sc-modo>$62.44</span></dd></div>
+        </dl>
+        <p class="text-sm text-slate-300 mb-2" data-sc-verdict>Modo is cheaper by <span data-sc-diff>$57.22</span>: the car sits parked for hours and the km stay low.</p>
+        <a href="?h=6&km=65" class="inline-flex items-center min-h-[44px] text-sm font-semibold text-white underline underline-offset-4">Run this trip →</a>
+      </div>
+      <div class="py-5 md:py-0 md:px-6 first:md:pl-0 last:md:pr-0" data-scenario data-h="0.4166666667" data-km="0" data-oneway>
+        <h3 class="font-display font-semibold text-lg">One-way night out downtown</h3>
+        <p class="text-xs text-slate-400 mb-3">25 min · one way</p>
+        <dl class="grid grid-cols-2 gap-3 mb-3">
+          <div><dt class="text-xs font-semibold text-evo">Evo</dt><dd><span class="font-mono text-base text-white" data-sc-evo>$15.79</span></dd></div>
+          <div><dt class="text-xs font-semibold text-modo-light">Modo Plus</dt><dd><span class="font-mono text-base text-slate-400">Not practical</span><span class="block text-xs text-slate-400">Round-trip only</span></dd></div>
+        </dl>
+        <p class="text-sm text-slate-300 mb-2" data-sc-verdict>Evo, because the car stays downtown. Modo would have to be driven back.</p>
+        <a href="../evo/" class="inline-flex items-center min-h-[44px] text-sm font-semibold text-white underline underline-offset-4">Price it in the Evo calculator →</a>
+      </div>
+    </div>
+  </section>
+
   <!-- Cheat sheet -->
   <section class="rounded-2xl border border-line bg-panel p-6 md:p-8">
     <h2 class="font-display font-semibold text-xl mb-4">Quick rules of thumb</h2>
@@ -190,7 +244,23 @@
 </footer>
 
 <script src="../assets/pricing.js?v=20261120"></script>
-<script src="../assets/site.js?v=20261120"></script>
+<script src="../assets/site.js?v=20261120b"></script>
+<script>
+/* Worked examples on this page: recompute the figures from assets/pricing.js so they never drift from the rates. */
+(function () {
+  var P = window.Pricing; if (!P) return;
+  var fmt = function (n) { return '$' + n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+  document.querySelectorAll('[data-scenario]').forEach(function (el) {
+    var h = parseFloat(el.getAttribute('data-h')), km = parseFloat(el.getAttribute('data-km'));
+    var e = P.evoQuote(Math.round(h * 60)).total;
+    el.querySelector('[data-sc-evo]').textContent = fmt(e);
+    if (el.hasAttribute('data-oneway')) return;
+    var m = P.modoQuote({ hours: h, km: km, plan: 'plus', vehicle: 'daily', ev: false }).total;
+    el.querySelector('[data-sc-modo]').textContent = fmt(m);
+    var d = el.querySelector('[data-sc-diff]'); if (d) d.textContent = fmt(P.round2(Math.abs(e - m)));
+  });
+})();
+</script>
 <script>
 (function () {
   var P = window.Pricing;
@@ -207,6 +277,7 @@
     var m = P.modoQuote({ hours: hours, km: kms, plan: $('plan').value, vehicle: $('vehicle').value, ev: $('ev').checked });
 
     $('eTrip').textContent = fmt(e.trip); $('eFee').textContent = fmt(e.fee); $('eTax').textContent = fmt(e.tax); $('eTotal').textContent = fmt(e.total);
+    window.renderFreeMinutes($('fmEvo'), hours * 60, $('bcaa').checked);
     $('mTime').textContent = fmt(m.time); $('mDist').textContent = fmt(m.dist); $('mFee').textContent = fmt(m.fee); $('mTax').textContent = fmt(m.tax); $('mTotal').textContent = fmt(m.total);
     toggleRow('ePvrtRow', 'ePvrt', e.pvrt); toggleRow('mPvrtRow', 'mPvrt', m.pvrt);
     $('eNote').textContent = e.note;

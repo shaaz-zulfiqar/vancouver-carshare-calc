@@ -148,6 +148,31 @@ var SITE_CONFIG = {
     return !!(c && String(c).trim());
   }
 
+  /* --------------------------------------------- free minutes in receipts */
+  /* Fills the "New to Evo?" line under an Evo receipt total. host is a [data-free-minutes] element holding a
+   * [data-fm-text] paragraph and a copy button. The saving is worked out with Pricing (no rates live here):
+   * it is the trip charge for this trip minus the trip charge with 60 fewer minutes. Evo doesn't say how its free
+   * minutes combine with the hourly and daily caps, so once the daily cap already applies no dollar figure is given.
+   * The line is not a live region: it changes on every keystroke, and the total next to it is already announced. */
+  window.renderFreeMinutes = function (host, minutes, bcaa) {
+    if (!host || !hasCode('evo') || !window.Pricing) return;
+    var P = window.Pricing, code = String(SITE_CONFIG.evo.code).trim();
+    var m = Math.max(0, Number(minutes) || 0);
+    var money = function (n) { return '$' + n.toFixed(2); };
+    var text;
+    if (m > 0 && m <= 60) {
+      text = 'New to Evo? Your first 60 minutes are free with code ' + code + ': $0.00 in driving charges on this trip, ' +
+        'so you’d pay only the ' + money(P.EVO.allAccess) + ' All-Access fee + tax (' + money(P.round2(P.EVO.allAccess * (1 + P.TAX_RATE))) + ').';
+    } else {
+      var save = m > 60 ? P.round2(P.evoQuote(m, { bcaa: bcaa }).trip - P.evoQuote(m - 60, { bcaa: bcaa }).trip) : 0;
+      text = save > 0.005
+        ? 'New to Evo? Save ' + money(save) + ' on this trip with 60 free driving minutes using code ' + code + '.'
+        : 'New to Evo? Code ' + code + ' waives the $35 registration fee and adds 60 free driving minutes to your first trip.';
+    }
+    var t = host.querySelector('[data-fm-text]');
+    if (t) t.textContent = text;
+  };
+
   function renderReferralBar() {
     var host = document.getElementById('referral-bar');
     if (!host) return;
