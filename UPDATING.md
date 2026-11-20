@@ -4,7 +4,8 @@
 1. Edit the numbers at the top of `assets/pricing.js` (EVO, MODO, PVRT, TAX_RATE).
 2. Re-check them against evo.ca/Rates and modo.coop/plans.
 3. Update the hand-written dollar figures that the code can't recompute: the "Quick answers" FAQ text and its
-   FAQPage JSON-LD on /evo/rates/ and /evo/promo-code/ (1 hour $22.22, 1 day $121.24, $1.85 fee = $2.07 with tax), and the
+   FAQPage JSON-LD on /evo/rates/ (1 hour $22.22, 1 day $121.24, $1.85 fee = $2.07 with tax), the sign-up question in the
+   /evo/promo-code/ FAQ and its JSON-LD ($35 registration, 60 minutes, $25 referral), and the
    /evo/rates/ title and description. Get the new totals from `node -e "const P=require('./assets/pricing.js'); console.log(P.evoQuote(60).total, P.evoQuote(1440).total)"`.
    (The worked examples on /compare/ and the "New to Evo?" receipt line recompute themselves from pricing.js.)
 4. ONLY THEN change `ratesReviewed` in `assets/site.js` (for example `'January 2027'`).
